@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../admin page/style.css">
+</head>
+
+<body>
+    <form id="form">
+
+        <div class="form-container">
+            <h2>Add New Product</h2>
+
+            <div class="form-group">
+                <label for="productImage">Product Image URL</label>
+                <input type="url" name="productImage" placeholder="Enter image URL" />
+            </div>
+
+            <div class="form-group">
+                <label for="productName">Product Name</label>
+                <input type="text" name="productName" placeholder="Enter product name" />
+            </div>
+
+            <div class="form-group">
+                <label for="productPrice">Product Price ($)</label>
+                <input type="number" name="productPrice" placeholder="Enter price" />
+            </div>
+
+            <div class="form-group">
+                <label for="productDescription">Product Description</label>
+                <input type="text" name="productDescription" placeholder="Enter description" />
+            </div>
+        </div>
+
+        <button type="submit">submit</button>
+    </form>
+
+    <script type="module">
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+
+        const firebaseConfig = {
+      apiKey: "AIzaSyB8ssLFBwiDqNb_Qc5lfnjazBHy6yDxxtA",
+      authDomain: "practise-firebase-89eb9.firebaseapp.com",
+      projectId: "practise-firebase-89eb9",
+      storageBucket: "practise-firebase-89eb9.firebasestorage.app",
+      messagingSenderId: "957716840584",
+      appId: "1:957716840584:web:7a5f4f0d6e5fe555a7df3d",
+      measurementId: "G-D15XM34EE3"
+    };
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const formData = document.getElementById('form');
+
+    formData.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const productname = formData.productName.value;
+        const image = formData.productImage.value;
+        const price = formData.productPrice.value;
+        const productdescription = formData.productDescription.value;
+
+
+
+        try {
+          const  collectionReference = collection(db, 'lipgloss product');
+          const response = await addDoc(collectionReference, {
+            productname, image, price, productdescription
+          });
+
+          console.log("Document written with ID: ", response.id);
+            
+        } catch (error) {
+            console.log(error);
+            
+        }
+
+    })
+
+    </script>
+
+</body>
+
+</html>

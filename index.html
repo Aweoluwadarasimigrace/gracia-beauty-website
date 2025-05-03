@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div class="header1">
+        <div class="search-box">
+            <input type="search" placeholder="what are you looking for?">
+            <i class="fa-solid fa-magnifying-glass icon" style="color: #634141;"></i>
+        </div>
+
+        <div class="promoCode">
+            <p>15% sitewide! use promo code LOVE15</p>
+        </div>
+
+        <div class="socials">
+            <a href=""><i class="fa-brands fa-instagram" style="color: #ffffff;"></i></a>
+            <a href=""> <i class="fa-brands fa-twitter" style="color: #ffffff;"></i></a>
+            <a href=""> <i class="fa-brands fa-whatsapp" style="color: #ffffff;"></i></a>
+        </div>
+    </div>
+
+
+    <header>
+        <nav>
+            <div class="image-wrapper">
+                <img src="./images/gracia-removebg-preview (1).png" alt="">
+            </div>
+            <ul class="menu-list">
+                <li><a href="">SHOP ALL</a></li>
+                <li><a href="">NEW</a></li>
+                <li><a href="">BEST SELLER</a></li>
+                <li><a href="">FACE</a></li>
+                <li><a href="">LIPS</a></li>
+                <li><a href="">EYES</a></li>
+            </ul>
+            <div class="login-icon">
+                <div class="login">
+                    <i class="fa-solid fa-circle-user" style="color: #000000;"></i>
+                    <p><a href="">LOGIN</a></p>
+
+                </div>
+                <div class="search-hide">
+                    <i class="fa-solid fa-magnifying-glass" style="color: #000000;" onclick="showSearchBar()"></i>
+                </div>
+                <i class="fa-solid fa-bag-shopping" style="color: #000000;"></i>
+
+                <div class="menu-bar">
+                    <i class="fa-solid fa-bars" style="color: #000000;" onclick="showMenu()"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="hiddenMenuBar" id="hiddenMenuBar">
+        <div class="close-mark"> <i class="fa-solid fa-xmark close" style="color: #000000;" onclick="closeMenu()"></i>
+        </div>
+
+        <ul>
+            <li><a href="">LOGIN</a></li>
+            <li><a href="">SHOP ALL</a></li>
+            <li><a href="">NEW</a></li>
+            <li><a href="">BEST SELLER</a></li>
+            <li><a href="">FACE</a></li>
+            <li><a href="">LIPS</a></li>
+            <li><a href="">EYES</a></li>
+        </ul>
+    </div>
+
+    <div class="search-hidden" id="searchBar">
+        <div class="search-wrapper">
+            <div class="close-mark"> <i class="fa-solid fa-xmark" style="color: #000000;"
+                    onclick="closeSearchBar()"></i></div>
+            <h1>What you are looking for?</h1>
+            <input type="search" placeholder="search">
+        </div>
+    </div>
+
+
+    <section class="hero-section">
+        <div class="herosection-text">
+            <p class="p">NEW RELEASE</p>
+            <h1>Metallics Shine on</h1>
+            <p class="p1">Get to know our new eyeshadow palettes with a glossy finish, smooth lightweight feel and 10
+                hour stay-on</p>
+            <button>SHOP NOW</button>
+        </div>
+    </section>
+
+
+
+
+    <section class="bestsellers">
+        <div class="bestseller-header">
+            <p>MUST HAVES</p>
+            <h1>Best Sellers</h1>
+        </div>
+        <div id="container"></div>
+
+        <div class="shop-bestseller">
+            <button class="shopBestseller">SHOP BESTSELLERS</button>
+        </div>
+    </section>
+
+
+    <section class="shoplips">
+        <div class="shoplip-wrapper">
+            <p class="text1">
+                WE BELIEVE</p>
+            <h1>
+                Your Lips 
+                Comes First
+            </h1>
+            <div class="btn-wrapper"><button class="shoplip">shop Lips</button></div>
+        </div>
+        <div class="shopLips-wrapper">
+
+            <p class="story">
+                It started with one shade—Glossy Rose. Not too loud, not too soft—just the right touch of
+                shine and color to make you feel like yourself, but bolder.
+
+                When Maya first wore it, she didn’t expect people to notice. But they did. At the coffee shop, at work,
+                even on her walk home—compliments followed her like a subtle breeze. “That color looks amazing on you.”
+                “What are you wearing?” “You look so confident today.”
+            </p>
+
+
+                <p class="text"> 
+                    It wasn’t just lip gloss—it was a little boost, a reminder that a small thing could change how you feel
+                    in the best way. Word spread fast. Soon, her friends tried it. Then their friends. And in no time,
+                    Glossy Rose became more than a product. It became a favorite.
+                    That’s how it earned its name—Most Vibrant Lips in Town
+                </p>
+
+
+        </div>
+    </section>
+
+    <section class="trendingproduct">
+        <div class="trending">
+            <p>DON'T MISS OUT</p>
+            <h1>Now Trending</h1>
+        </div>
+        <div id="trendingContainer" class="container"></div>
+    </section>
+
+    <script type="module">
+
+        function showSearchBar() {
+            let searchBar = document.getElementById('searchBar');
+            searchBar.style.display = 'block';
+        }
+        function closeSearchBar() {
+            let searchbar = document.getElementById('searchBar');
+            searchbar.style.display = 'none';
+        }
+
+
+
+        function showMenu() {
+            let menuList = document.getElementById('hiddenMenuBar');
+            menuList.style.visibility = 'visible';
+        }
+
+        function closeMenu() {
+            let menu = document.getElementById('hiddenMenuBar');
+            menu.style.visibility = 'hidden';
+        }
+
+
+
+
+
+
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getFirestore, getDocs, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB8ssLFBwiDqNb_Qc5lfnjazBHy6yDxxtA",
+            authDomain: "practise-firebase-89eb9.firebaseapp.com",
+            projectId: "practise-firebase-89eb9",
+            storageBucket: "practise-firebase-89eb9.firebasestorage.app",
+            messagingSenderId: "957716840584",
+            appId: "1:957716840584:web:7a5f4f0d6e5fe555a7df3d",
+            measurementId: "G-D15XM34EE3"
+        };
+
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const cartRef = collection(db, 'cart')
+        const colRef = collection(db, 'bestsellers');
+        const trendingRef = collection(db, 'trending');
+        const trending = [];
+
+        const bestSeller = [];
+        let container = document.getElementById('container');
+let trendingContainer = document.getElementById('trendingContainer')
+
+        async function getTrending() {
+            try {
+                const trendingProduct = await getDocs(trendingRef);
+                trendingProduct.forEach((doc) =>{
+                    const data2 ={ id: doc.id, ... doc.data()};
+                    trending.push(data2)
+                })
+            } catch (error) {
+                console.log(error);
+                
+            }
+        }
+
+        async function getBestsellers() {
+            try {
+                const product = await getDocs(colRef);
+
+                product.forEach((document) => {
+                    const data = { id: document.id, ...document.data() }
+                    console.log(data);
+                    bestSeller.push(data)
+
+                });
+
+                displayBestSellers();
+                displayTrending();
+
+            } catch (error) {
+                console.log(error);
+
+            }
+        }
+
+        window.addTocart = async function (productId) {
+            try {
+                const product = bestSeller.find((products) => products.id === productId)
+                await addDoc(cartRef, {
+                    image: product.image,
+                    productId: product.id,
+                    productname: product.productname,
+                    productdescription: product.productdescription,
+                    price: product.price
+                })
+                alert('added to cart succesfully')
+            } catch (error) {
+                console.log(error);
+
+            }
+
+        }
+
+
+        window.addToCart = async function (productId) {
+              try {
+                const products = trending.find((product) => product.id === productId)
+                await addDoc(cartRef,{
+                    image : products.image,
+                    productdescription: products.productdescription,
+                    productname: products.productname,
+                    price: products.price,
+                    productId: products.id
+                })
+              } catch (error) {
+                
+              }
+        }
+
+
+
+        function displayBestSellers() {
+            bestSeller.forEach((product) => {
+                container.innerHTML += `
+
+
+            <div class='box'>
+                <img src='${product.image}'>
+                <div class = 'wrapper'>
+                    <p>${product.productname}</p>
+                    <p> $ ${product.price}.00 </p>
+                </div>
+                <button onclick="addTocart('${product.id}')" class = 'addtocart'>add to cart</button>
+            </div>
+            `
+            })
+        };
+
+function displayTrending (){
+    trending.forEach((products) => {
+        trendingContainer.innerHTML +=`
+ <div class='box'>
+                <img src='${products.image}'>
+                <div class = 'wrapper'>
+                    <p>${products.productname}</p>
+                    <p> $ ${products.price}.00 </p>
+                </div>
+                <button onclick="addToCart('${products.id}')" class = 'addtocart'>add to cart</button>
+            </div>
+
+        `
+    })
+}
+
+
+
+getTrending();
+        getBestsellers()
+    </script>
+</body>
+
+
+</html>
