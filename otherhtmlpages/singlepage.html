@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../othercsspages/singlepage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <!-- Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+</head>
+
+<body>
+    <div class="header1">
+        <div class="search-box">
+            <input type="search" placeholder="what are you looking for?">
+            <i class="fa-solid fa-magnifying-glass icon" style="color: #634141;"></i>
+        </div>
+
+        <div class="promoCode">
+            <p>15% sitewide! use promo code LOVE15</p>
+        </div>
+
+        <div class="socials">
+            <a href=""><i class="fa-brands fa-instagram" style="color: #ffffff;"></i></a>
+            <a href=""> <i class="fa-brands fa-twitter" style="color: #ffffff;"></i></a>
+            <a href=""> <i class="fa-brands fa-whatsapp" style="color: #ffffff;"></i></a>
+        </div>
+    </div>
+
+
+    <header>
+        <nav>
+            <div class="image-wrapper">
+                <a href="../index.html"><img src="../images/gracia-removebg-preview (1).png" alt=""></a>
+            </div>
+            <ul class="menu-list">
+                <li><a href="">SHOP ALL</a></li>
+                <li><a href="">NEW</a></li>
+                <li><a href="">BEST SELLER</a></li>
+                <li><a href="">FACE</a></li>
+                <li><a href="">LIPS</a></li>
+                <li><a href="">EYES</a></li>
+            </ul>
+            <div class="login-icon">
+                <div class="login">
+                    <i class="fa-solid fa-circle-user" style="color: #000000;"></i>
+                    <p><a href="">LOGIN</a></p>
+
+                </div>
+                <div class="heart">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
+                <div class="search-hide">
+                    <i class="fa-solid fa-magnifying-glass" style="color: #000000;" onclick="showSearchBar()"></i>
+                </div>
+                <i class="fa-solid fa-bag-shopping" style="color: #000000;"></i>
+
+                <div class="menu-bar">
+                    <i class="fa-solid fa-bars" style="color: #000000;" onclick="showMenu()"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="hiddenMenuBar" id="hiddenMenuBar">
+        <div class="close-mark"> <i class="fa-solid fa-xmark close" style="color: #000000;" onclick="closeMenu()"></i>
+        </div>
+
+        <ul>
+            <li><a href="">LOGIN</a></li>
+            <li><a href="">SHOP ALL</a></li>
+            <li><a href="">NEW</a></li>
+            <li><a href="">BEST SELLER</a></li>
+            <li><a href="">FACE</a></li>
+            <li><a href="">LIPS</a></li>
+            <li><a href="">EYES</a></li>
+        </ul>
+    </div>
+
+    <div class="search-hidden" id="searchBar">
+        <div class="search-wrapper">
+            <div class="close-mark"> <i class="fa-solid fa-xmark" style="color: #000000;"
+                    onclick="closeSearchBar()"></i></div>
+            <h1>What you are looking for?</h1>
+            <input type="search" placeholder="search">
+        </div>
+    </div>
+
+
+
+
+
+    <section class="displayproduct">
+        <div class="navigation">
+            <p><a href="../index.html">Home /</a></p>
+            <p id="display"></p>
+        </div>
+
+        <div id="containerr">
+
+                <div class="social">
+                    <a href="http://www.instagram.com/lifewdaraa/"><i class="fa-brands fa-instagram" style="color: #ffffff;"></i></a>
+                    <a href=""> <i class="fa-brands fa-twitter" style="color: #ffffff;"></i></a>
+                    <a href="https://wa.me/message/FPHLPBSEH7NSI1"> <i class="fa-brands fa-whatsapp" style="color: #ffffff;"></i></a>
+                </div>
+                <p>category</p>
+            
+        </div>
+
+        <div class="review">
+            <h4>No Reviews Yet</h4>
+            <p>Share your thoughts. Be the first to leave a review.</p>
+            <button>Leave a Review</button>
+        </div>
+    </section>
+
+
+
+    <section class="youmightalsolike">
+        <div id="youmightalsolike">
+            <div class="box"></div>
+        </div>
+    </section>
+
+    <section class="newsletter">
+        <div class="news-wrapper">
+            <h1>Are you on the list?</h1>
+            <p>Join to get exclusive offers & discounts</p>
+            <form class="input-wrapper" id="newsletter">
+                <input type="email" placeholder="enter your email" id="email" name="email">
+                <button type="submit">join</button>
+            </form>
+        </div>
+    </section>
+    <div id="alertBox" class="alert">p.</div>
+    <footer>
+        <div class="footer">
+            <ul class="ul">
+                <h3>Shop</h3>
+                <li><a href="">All product</a></li>
+                <li><a href="">New</a></li>
+                <li><a href="">Best seller</a></li>
+                <li><a href="">Lips</a></li>
+                <li><a href="">Eyes</a></li>
+                <li><a href="">Face</a></li>
+            </ul>
+
+            <ul>
+                <h3>Our Store</h3>
+                <ul class="ul1">
+                    <li>500 Terry Francine Street</li>
+                    <li>San francisco, CA 94158</li>
+                </ul>
+                <ul class="ul2">
+                    <li>Monday-Friday : 11am-10pm</li>
+                    <li> Saturday-Sunday: 11am-12pm</li>
+                </ul>
+                <li>Tel: 081-391-300-40</li>
+                <li>Email: darasimigrace123@gmail.com</li>
+            </ul>
+            <ul class="ul3">
+                <h3>Policy</h3>
+                <li>Shipping & Returns</li>
+                <li>Store Policy </li>
+                <li>Payment Methods </li>
+                <li> FAQ</li>
+            </ul>
+            <ul class="ul4">
+                <h3>Customer Service</h3>
+                <li>Tel: 081-391-300-40</li>
+                <li>Email: darasimigrace123@gmail.com</li>
+                <ul class="social">
+                    <a href=""><i class="fa-brands fa-instagram insta" style="color: #ffffff;"></i></a>
+                    <a href=""> <i class="fa-brands fa-twitter insta" style="color: #ffffff;"></i></a>
+                    <a href=""> <i class="fa-brands fa-whatsapp insta" style="color: #ffffff;"></i></a>
+                </ul>
+            </ul>
+        </div>
+        <p>© 2035 by Noelle. Powered and secured by Wix</p>
+    </footer>
+
+
+
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
+    <script type="text/javascript">
+        (function () {
+            emailjs.init({
+                publicKey: "8EE44vqqd4TnnSdiU",
+            });
+        })();
+    </script>
+    <script type="module">
+
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getFirestore, getDocs, collection, addDoc, query, where, getDoc, doc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB8ssLFBwiDqNb_Qc5lfnjazBHy6yDxxtA",
+            authDomain: "practise-firebase-89eb9.firebaseapp.com",
+            projectId: "practise-firebase-89eb9",
+            storageBucket: "practise-firebase-89eb9.firebasestorage.app",
+            messagingSenderId: "957716840584",
+            appId: "1:957716840584:web:7a5f4f0d6e5fe555a7df3d",
+            measurementId: "G-D15XM34EE3"
+        };
+
+
+
+
+        
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
+        const cameFrom = urlParams.get('from')
+        // const cartRef = collection(db, 'cart', productId)
+
+
+        console.log(productId);
+        
+        const colRef = doc(db, 'bestsellers', productId);
+        const trendingRef = doc(db, 'trending', productId);
+const backPage = document.getElementById('display');
+
+   function backLink(){
+         if ( cameFrom === 'bestsellers') {
+            backPage.innerHTML = `<a href="index.html#bestsellers">← Back to Bestsellers</a>`
+         } else {
+            backLinkDiv.innerHTML = `<a href="index.html">← Back to Home</a>`;
+         }
+}
+
+
+      async function getsingleProduct() {
+    try {
+        const docsnapShot = await getDoc(colRef);
+        if (docsnapShot.exists()) {
+            const data = docsnapShot.data();
+            const product = {id: docsnapShot.id, ...data};
+            displaySingleProduct(product);
+        }
+    } catch (error) {
+    console.log(error);
+    
+    }
+};
+
+async function getsingleTrendingProduct() {
+   try {
+    const docsnapshot = await getDoc(trendingRef);
+    if (docsnapshot.exists()) {
+        const data = docsnapshot.data();
+        const trendingProduct = {id: docsnapshot.id, ...data};
+        displayTrendingProduct(trendingProduct)
+    }
+
+   } catch (error) {
+    console.log(error);
+   }
+}
+
+function displayTrendingProduct(trendingProduct) {
+    let container = document.getElementById('containerr');
+
+    container.innerHTML = `
+
+    <div class="image-wrapperr">
+            <img src="${trendingProduct.image}" alt="">
+            <p>${trendingProduct.productdescription}</p>
+        </div>
+
+        <div class="product-title">
+            <div class="title-wrapper">
+                <h1>${trendingProduct.productname}</h1>
+                <p> $ ${trendingProduct.price}.00</p>
+                <p>${trendingProduct.category}</p>
+            </div>
+
+            <div class="quantity-control">
+                <button onclick="decreaseQuantity()">-</button>
+                <input type="number" id="quantity" value="1" min="1" readonly>
+                <button onclick="increaseQuantity()">+</button>
+            </div>
+
+            <div class="addtoCart">
+                <button class="btn">Add to Cart</button>
+                <button class="btn2"><i class="fa-regular fa-heart"></i></button>
+            </div>
+
+            <div class="shippin">
+                <h1>SHIPPING POLICY</h1>
+                <p>Gracia processes orders within 1–2 business days, with standard shipping taking 3–7 business
+                    days. Tracking is provided for all orders to ensure transparent delivery updates.
+                    Shipping availability may vary by location; contact support for assistance.</p>
+            </div>
+        </div>
+    `
+}
+
+  
+
+
+
+function createSwiper(imageArray) {
+    const slides = imageArray.map((image)=>{
+         return   `
+             <div class="swiper-slide">
+        <img src="${image}">
+      </div>
+            `
+    });
+
+
+    return`
+     <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        ${slides}
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+    `
+}
+function displaySingleProduct(product) {
+    let containerr = document.getElementById('containerr');
+const swiperHtml = createSwiper(product.image)
+    containerr.innerHTML = `
+        <div class="image-wrapperr">
+${swiperHtml}
+            <p>${product.productdescription}</p>
+        </div>
+
+        <div class="product-title">
+            <div class="title-wrapper">
+                <h1>${product.productname}</h1>
+                <p> $ ${product.price}.00</p>
+                <p>${product.category}</p>
+            </div>
+
+            <div class="quantity-control">
+                <button onclick="decreaseQuantity()">-</button>
+                <input type="number" id="quantity" value="1" min="1" readonly>
+                <button onclick="increaseQuantity()">+</button>
+            </div>
+
+            <div class="addtoCart">
+                <button class="btn">Add to Cart</button>
+                <button class="btn2"><i class="fa-regular fa-heart"></i></button>
+            </div>
+
+            <div class="shippin">
+                <h1>SHIPPING POLICY</h1>
+                <p>Gracia processes orders within 1–2 business days, with standard shipping taking 3–7 business
+                    days. Tracking is provided for all orders to ensure transparent delivery updates.
+                    Shipping availability may vary by location; contact support for assistance.</p>
+            </div>
+        </div>
+    `;
+
+
+    new Swiper('.mySwiper', {
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+  });
+}
+
+        function showSearchBar() {
+            let searchBar = document.getElementById('searchBar');
+            searchBar.style.display = 'block';
+        }
+        function closeSearchBar() {
+            let searchbar = document.getElementById('searchBar');
+            searchbar.style.display = 'none';
+        }
+
+        function showMenu() {
+            let menuList = document.getElementById('hiddenMenuBar');
+            menuList.style.visibility = 'visible';
+        }
+
+        function closeMenu() {
+            let menu = document.getElementById('hiddenMenuBar');
+            menu.style.visibility = 'hidden';
+        }
+
+
+        //email.js 
+
+        newsletter.addEventListener('submit', async (e) => {
+            e.preventDefault()
+            let emails = document.getElementById('email').value;
+
+
+            const q = query(newsletterRef, where('email', '==', emails));
+            const querySnapshot = await getDocs(q);
+            if (!querySnapshot.empty) {
+                showAlert('email already registered');
+                return
+            }
+            try {
+                await addDoc(newsletterRef, { email: emails });
+                const response = await emailjs.sendForm('service_vbjomvt', 'template_pzgjgqe', '#newsletter');
+
+                showAlert('subscribed sucesssful');
+    newsletter.reset(); 
+            } catch (error) {
+                console.log(error);
+
+            }
+        });
+
+        function showAlert(message) {
+
+            alertBox.innerHTML = message;
+            alertBox.style.display = 'block';
+
+            setTimeout(() => {
+                alertBox.style.display = 'none';
+            }, 2000)
+        };
+
+        getsingleProduct();
+        getsingleTrendingProduct();
+    </script>
+</body>
+
+</html>
