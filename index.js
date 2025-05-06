@@ -84,13 +84,15 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebas
                 trendingProduct.forEach((doc) => {
                     const data2 = { id: doc.id, ...doc.data() };
                     trending.push(data2)
-                })
+                });
+
+                displayTrending();
+
             } catch (error) {
                 console.log(error);
-
             }
         }
-
+// get bestseller
         async function getBestsellers() {
             try {
                 const product = await getDocs(colRef);
@@ -103,14 +105,13 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebas
                 });
 
                 displayBestSellers();
-                displayTrending();
 
             } catch (error) {
                 console.log(error);
 
             }
         }
-
+// add to cart for bestseller
         window.addTocart = async function (productId) {
             try {
                 const product = bestSeller.find((products) => products.id === productId)
@@ -156,7 +157,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebas
 
 
             <div class='box'>
-               <a href="./otherhtmlpages/singlepage.html?id=${product.id}">
+               <a href="./otherhtmlpages/singlepage.html?id=${product.id}&cameFrom = bestsellers">
                  <div class="product-image">
                   <img class="main-img" src="${product.image[0]}" alt="${product.productname}">
                   <img class="hover-img" src="${product.image[1]}" alt="${product.productname}">
@@ -177,7 +178,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebas
             trending.forEach((products) => {
                 trendingContainer.innerHTML += `
  <div class='box'>
-                <a href="./otherhtmlpages/singlepage.html?id=${products.id}&cameFrom = ${cameFrom}">
+                <a href="./otherhtmlpages/singlepage.html?id=${products.id}&cameFrom = trending">
                 <img src='${products.image}' class='img-scale'>
                  <div class = 'wrapper'>
                     <p>${products.productname}</p>
