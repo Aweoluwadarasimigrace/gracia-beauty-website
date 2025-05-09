@@ -172,16 +172,12 @@ nav {
     gap: .5em;
     align-items: center;
 }
-
 .fa-circle-user {
     font-size: 16px;
 }
-
 .fa-heart {
     font-size: 18px;
 }
-
-
 .login p a {
     text-decoration: none;
     color: black;
@@ -259,8 +255,8 @@ nav {
     margin-bottom: 35px;
 }
 
-#hiddenMenuBar {
-    visibility: hidden;
+#hiddenmenuBar {
+    display: none;
 }
 
 /* hero section */
@@ -492,8 +488,6 @@ margin-bottom: 4px;
     background-color: transparent;
     transition: all .9s ease;
 }
-
-
 .shopBestseller:hover {
     background-color: black;
     color: white;
@@ -665,6 +659,7 @@ margin-bottom: 4px;
         scroll-snap-type: x mandatory;
         scroll-behavior: smooth;
         overflow-x: scroll;
+        overflow-y: hidden;
     }
 }
 

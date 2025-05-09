@@ -53,19 +53,19 @@
                     <i class="fa-regular fa-heart"></i>
                 </div>
                 <div class="search-hide">
-                    <i class="fa-solid fa-magnifying-glass" style="color: #000000;" onclick="showSearchBar()"></i>
+                    <i class="fa-solid fa-magnifying-glass" style="color: #000000;" id="showSearchBar"></i>
                 </div>
-                <i class="fa-solid fa-bag-shopping" style="color: #000000;"></i>
-
+               <a href="./otherhtmlpages/addtocart.html"> <i class="fa-solid fa-bag-shopping" style="color: #000000;"></i>
+               </a>
                 <div class="menu-bar">
-                    <i class="fa-solid fa-bars" style="color: #000000;" onclick="showMenu()"></i>
+                    <i class="fa-solid fa-bars" style="color: #000000;" id="showMenu"></i>
                 </div>
             </div>
         </nav>
     </header>
 
-    <div class="hiddenMenuBar" id="hiddenMenuBar">
-        <div class="close-mark"> <i class="fa-solid fa-xmark close" style="color: #000000;" onclick="closeMenu()"></i>
+    <div class="hiddenMenuBar" id="hiddenmenuBar">
+        <div class="close-mark"> <i class="fa-solid fa-xmark close" style="color: #000000;" id="closeMenu""></i>
         </div>
 
         <ul>
@@ -82,7 +82,7 @@
     <div class="search-hidden" id="searchBar">
         <div class="search-wrapper">
             <div class="close-mark"> <i class="fa-solid fa-xmark" style="color: #000000;"
-                    onclick="closeSearchBar()"></i></div>
+                    id="closeSearchBar"></i></div>
             <h1>What you are looking for?</h1>
             <input type="search" placeholder="search">
         </div>
@@ -112,7 +112,9 @@
         </div>
 
         <div class="shop-bestseller">
-            <button class="shopBestseller">SHOP BESTSELLERS</button>
+            <button class="shopBestseller" id="shopBestseller">SHOP BESTSELLERS</button>
+            <!-- <a href="./otherhtmlpages/bestselller.html"></a> -->
+             
         </div>
     </section>
 
@@ -168,7 +170,7 @@
         <h1 class="shopnow-header">Discover More</h1>
         <div class="shopnow-wrapper">
             <div class="picture-wrapper">
-                <a href="">
+                <a href="./otherhtmlpages/eyes.html">
                     <img src="./images/SHOPNOW1.jpg" alt="">
                     <p>SHOP</p>
                     <h1>EYES</h1>
@@ -176,7 +178,7 @@
             </div>
 
             <div class="picture-wrapper">
-                <a href="">
+                <a href="./otherhtmlpages/face.html">
                     <img src="./images/SHOPNOW2.jpg" alt="">
                     <p>SHOP</p>
                     <h1>FACE</h1>
@@ -184,7 +186,7 @@
             </div>
 
             <div class="picture-wrapper">
-                <a href="">
+                <a href="./otherhtmlpages/lips.html">
                     <img src="./images/SHOPNOW3.jpg" alt="">
                     <p>SHOP</p>
                     <h1>LIPS</h1>
@@ -250,9 +252,9 @@
             </ul>
             <ul class="ul3">
                 <h3>Policy</h3>
-                <li>Shipping & Returns</li>
-                <li>Store Policy </li>
-                <li>Payment Methods </li>
+                <li><a href="">Shipping & Returns</a></li>
+                <li><a href="">Store Policy</a> </li>
+                <li><a href="">Payment Methods</a> </li>
                 <li> FAQ</li>
             </ul>
             <ul class="ul4">
@@ -269,15 +271,8 @@
         <p>© 2035 by Noelle. Powered and secured by Wix</p>
     </footer>
 
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
-    </script>
-    <script type="text/javascript">
-        (function () {
-            emailjs.init({
-                publicKey: "8EE44vqqd4TnnSdiU",
-            });
-        })();
-    </script>
+    <!-- <script type="module" src="email-init.js"></script> -->
+    <!-- <script type="module" src="path/to/your/script.js"></script> -->
     <script type="module" src="./index.js"></script>
 </body>
 

@@ -9,16 +9,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <!-- Swiper CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
-<!-- Swiper JS -->
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 </head>
-<a href="../index.html"></a>
+
 <body>
-    <div class="header1">
+    <div class="wrap" id="loaderr">
+        <div class="loader" id="loader"></div>
+    </div>
+    <div class="header1" id="header" hidden>
         <div class="search-box">
             <input type="search" placeholder="what are you looking for?">
             <i class="fa-solid fa-magnifying-glass icon" style="color: #634141;"></i>
@@ -29,14 +32,16 @@
         </div>
 
         <div class="socials">
-            <a href="http://www.instagram.com/lifewdaraa/"><i class="fa-brands fa-instagram" style="color: #ffffff;"></i></a>
+            <a href="http://www.instagram.com/lifewdaraa/"><i class="fa-brands fa-instagram"
+                    style="color: #ffffff;"></i></a>
             <a href=""> <i class="fa-brands fa-twitter" style="color: #ffffff;"></i></a>
-            <a href="https://wa.me/message/FPHLPBSEH7NSI1"> <i class="fa-brands fa-whatsapp" style="color: #ffffff;"></i></a>
+            <a href="https://wa.me/message/FPHLPBSEH7NSI1"> <i class="fa-brands fa-whatsapp"
+                    style="color: #ffffff;"></i></a>
         </div>
     </div>
 
 
-    <header>
+    <header id="head" hidden>
         <nav>
             <div class="image-wrapper">
                 <a href="../index.html"><img src="../images/gracia-removebg-preview (1).png" alt=""></a>
@@ -59,78 +64,83 @@
                     <i class="fa-regular fa-heart"></i>
                 </div>
                 <div class="search-hide">
-                    <i class="fa-solid fa-magnifying-glass" style="color: #000000;" onclick="showSearchBar()"></i>
+                    <i class="fa-solid fa-magnifying-glass" style="color: #000000;" id="showSearchBar"></i>
                 </div>
-                <i class="fa-solid fa-bag-shopping" style="color: #000000;"></i>
+                <a href="./addtocart.html"><i class="fa-solid fa-bag-shopping" style="color: #000000;"></i></a>
 
                 <div class="menu-bar">
-                    <i class="fa-solid fa-bars" style="color: #000000;" onclick="showMenu()"></i>
+                    <i class="fa-solid fa-bars" style="color: #000000;" id="showMenu"></i>
                 </div>
             </div>
         </nav>
     </header>
 
     <div class="hiddenMenuBar" id="hiddenMenuBar">
-        <div class="close-mark"> <i class="fa-solid fa-xmark close" style="color: #000000;" onclick="closeMenu()"></i>
+        <div class="close-mark"> <i class="fa-solid fa-xmark close" style="color: #000000;" id="closeMenu"></i>
         </div>
 
         <ul>
             <li><a href="">LOGIN</a></li>
-            <li><a href="">SHOP ALL</a></li>
-            <li><a href="">NEW</a></li>
-            <li><a href="">BEST SELLER</a></li>
-            <li><a href="">FACE</a></li>
-            <li><a href="">LIPS</a></li>
-            <li><a href="">EYES</a></li>
+            <li><a href="./allproduct.html">SHOP ALL</a></li>
+            <li><a href="./newproduct.html">NEW</a></li>
+            <li><a href="./bestselller.html">BEST SELLER</a></li>
+            <li><a href="./face.html">FACE</a></li>
+            <li><a href="./lips.html">LIPS</a></li>
+            <li><a href="./eyes.html">EYES</a></li>
         </ul>
     </div>
 
     <div class="search-hidden" id="searchBar">
         <div class="search-wrapper">
             <div class="close-mark"> <i class="fa-solid fa-xmark" style="color: #000000;"
-                    onclick="closeSearchBar()"></i></div>
+                    id="closeSearchBar"></i></div>
             <h1>What you are looking for?</h1>
             <input type="search" placeholder="search">
         </div>
     </div>
 
 
-
-
-
-    <section class="displayproduct">
+    <section class="navigations" id="nav" hidden>
+        <h1>SHOP</h1>
         <div class="navigation">
             <p><a href="../index.html">Home /</a></p>
             <p id="display"></p>
         </div>
 
+    </section>
+
+
+    <section class="displayproduct">
         <div id="containerr">
 
-                <div class="social">
-                    <a href="http://www.instagram.com/lifewdaraa/"><i class="fa-brands fa-instagram" style="color: #ffffff;"></i></a>
-                    <a href="https://x.com/oluwa_Darasiimi"> <i class="fa-brands fa-twitter" style="color: #ffffff;"></i></a>
-                    <a href="https://wa.me/message/FPHLPBSEH7NSI1"> <i class="fa-brands fa-whatsapp" style="color: #ffffff;"></i></a>
-                </div>
-                <p>category</p>
-            
+            <div class="social">
+                <a href="http://www.instagram.com/lifewdaraa/"><i class="fa-brands fa-instagram"
+                        style="color: #ffffff;"></i></a>
+                <a href="https://x.com/oluwa_Darasiimi"> <i class="fa-brands fa-twitter"
+                        style="color: #ffffff;"></i></a>
+                <a href="https://wa.me/message/FPHLPBSEH7NSI1"> <i class="fa-brands fa-whatsapp"
+                        style="color: #ffffff;"></i></a>
+            </div>
         </div>
 
-        <div class="review">
+        <div class="review" id="review">
             <h4>No Reviews Yet</h4>
             <p>Share your thoughts. Be the first to leave a review.</p>
-            <button >Leave a Review</button>
-        </div>
-    </section>
-   
-
-
-    <section class="youmightalsolike">
-        <div id="youmightalsolike">
-            <div class="box"></div>
+            <button>Leave a Review</button>
         </div>
     </section>
 
-    <section class="newsletter">
+
+
+    <section class="youmightalsolike" id="like" hidden>
+        <div class="youMightalsolike">
+            <p class="mightalsolike">You Might Also Like</p>
+            <div id="youmightalsolike">
+                <div class="box"></div>
+            </div>
+        </div>
+    </section>
+    <section class="newsletter" id="news" hidden>
         <div class="news-wrapper">
             <h1>Are you on the list?</h1>
             <p>Join to get exclusive offers & discounts</p>
@@ -141,7 +151,7 @@
         </div>
     </section>
     <div id="alertBox" class="alert">p.</div>
-    <footer>
+    <footer id="footer" hidden>
         <div class="footer">
             <ul class="ul">
                 <h3>Shop</h3>
@@ -168,19 +178,22 @@
             </ul>
             <ul class="ul3">
                 <h3>Policy</h3>
-                <li>Shipping & Returns</li>
-                <li>Store Policy </li>
-                <li>Payment Methods </li>
-                <li> FAQ</li>
+                <li><a href="./shipping.html">Shipping & Returns</a></li>
+                <li><a href="./storepolicy.html">Store Policy</a> </li>
+                <li><a href="">Payment Methods</a> </li>
+                <li><a href=""> FAQ</a></li>
             </ul>
             <ul class="ul4">
                 <h3>Customer Service</h3>
                 <li>Tel: 081-391-300-40</li>
                 <li>Email: darasimigrace123@gmail.com</li>
                 <ul class="social">
-                    <a href="http://www.instagram.com/lifewdaraa/"><i class="fa-brands fa-instagram insta" style="color: #ffffff;"></i></a>
-                    <a href="https://x.com/oluwa_Darasiimi"> <i class="fa-brands fa-twitter insta" style="color: #ffffff;"></i></a>
-                    <a href="https://wa.me/message/FPHLPBSEH7NSI1"> <i class="fa-brands fa-whatsapp insta" style="color: #ffffff;"></i></a>
+                    <a href="http://www.instagram.com/lifewdaraa/"><i class="fa-brands fa-instagram insta"
+                            style="color: #ffffff;"></i></a>
+                    <a href="https://x.com/oluwa_Darasiimi"> <i class="fa-brands fa-twitter insta"
+                            style="color: #ffffff;"></i></a>
+                    <a href="https://wa.me/message/FPHLPBSEH7NSI1"> <i class="fa-brands fa-whatsapp insta"
+                            style="color: #ffffff;"></i></a>
                 </ul>
             </ul>
         </div>
@@ -201,4 +214,5 @@
     </script>
     <script type="module" src="../otherjavascriptpages/singlepage.js"></script>
 </body>
+
 </html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../othercsspages/storepolicy.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div class="header1">
+        <div class="search-box">
+            <input type="search" placeholder="what are you looking for?">
+            <i class="fa-solid fa-magnifying-glass icon" style="color: #634141;"></i>
+        </div>
+
+        <div class="promoCode">
+            <p>15% sitewide! use promo code LOVE15</p>
+        </div>
+
+        <div class="socials">
+            <a href="http://www.instagram.com/lifewdaraa/"><i class="fa-brands fa-instagram"
+                    style="color: #ffffff;"></i></a>
+            <a href=""> <i class="fa-brands fa-twitter" style="color: #ffffff;"></i></a>
+            <a href="https://wa.me/message/FPHLPBSEH7NSI1"> <i class="fa-brands fa-whatsapp"
+                    style="color: #ffffff;"></i></a>
+        </div>
+    </div>
+
+
+    <header>
+        <nav>
+            <div class="image-wrapper">
+                <a href="../index.html"> <img src="../images/gracia-removebg-preview (1).png" alt=""></a>
+            </div>
+            <ul class="menu-list">
+                <li><a href="./allproduct.html">SHOP ALL</a></li>
+                <li><a href="./otherhtmlpages/newproduct.html">NEW</a></li>
+                <li><a href="./otherhtmlpages/bestselller.html">BEST SELLER</a></li>
+                <li><a href="./otherhtmlpages/face.html">FACE</a></li>
+                <li><a href="./otherhtmlpages/lips.html">LIPS</a></li>
+                <li><a href="./otherhtmlpages/eyes.html">EYES</a></li>
+            </ul>
+            <div class="login-icon">
+                <div class="login">
+                    <i class="fa-solid fa-circle-user" style="color: #000000;"></i>
+                    <p><a href="">LOGIN</a></p>
+
+                </div>
+                <div class="heart">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
+                <div class="search-hide">
+                    <i class="fa-solid fa-magnifying-glass" style="color: #000000;" id="showSearchBar"></i>
+                </div>
+                <a href="./otherhtmlpages/addtocart.html"> <i class="fa-solid fa-bag-shopping"
+                        style="color: #000000;"></i>
+                </a>
+                <div class="menu-bar" onclick="showMenu()">
+                    <i class="fa-solid fa-bars" style="color: #000000;"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="hiddenMenuBar" id="hiddenmenuBar">
+        <div class="close-mark"> <i class="fa-solid fa-xmark close" style="color: #000000;" onclick="closeMenu()"></i>
+        </div>
+
+        <ul>
+            <li><a href="">LOGIN</a></li>
+            <li><a href="./otherhtmlpages/allproduct.html">SHOP ALL</a></li>
+            <li><a href="./otherhtmlpages/newproduct.html">NEW</a></li>
+            <li><a href="./otherhtmlpages/bestselller.html">BEST SELLER</a></li>
+            <li><a href="./otherhtmlpages/face.html">FACE</a></li>
+            <li><a href="./otherhtmlpages/lips.html">LIPS</a></li>
+            <li><a href="./otherhtmlpages/eyes.html">EYES</a></li>
+        </ul>
+    </div>
+
+    <div class="search-hidden" id="searchBar">
+        <div class="search-wrapper">
+            <div class="close-mark"> <i class="fa-solid fa-xmark" style="color: #000000;" id="closeSearchBar"></i></div>
+            <h1>What you are looking for?</h1>
+            <input type="search" placeholder="search">
+        </div>
+    </div>
+
+
+    <section class="storepolicy">
+        <div class="store-policy">
+            <h1>Gracia Beauty Store Policy</h1>
+
+            <p class="p-para">At Gracia Beauty, we are dedicated to providing you with premium beauty products and a seamless shopping
+                experience. To ensure transparency and build trust with our customers, we have outlined our store
+                policies in detail below. Please take a few moments to review them before placing your order.</p>
+            <div class="paragraph1">
+                <h3>📦 Order Processing & Shipping</h3>
+                <ul>
+                    <li>
+                        <strong>Order Confirmation:</strong>
+                        Once you place an order, you will receive a confirmation email with your order details. If you
+                        do not receive this email, please check your spam or junk folder.
+                    </li>
+                    <li><strong>Processing Time: </strong>
+                        Orders are processed within 1–2 business days (excluding weekends and public holidays). During
+                        high-demand periods such as sales or product launches, processing may take an additional 1–2
+                        days.
+                    </li>
+                    <li><strong>Shipping Methods:</strong>
+                        We offer multiple shipping options at checkout, including standard, expedited, and express
+                        shipping (where available).
+                    </li>
+                    <li><strong>Tracking:</strong>As soon as your order ships, you will receive an email with a tracking
+                        number so you can monitor your package's journey.</li>
+                    <li><strong>International Shipping:</strong> We currently ship to selected countries. Please note
+                        that international customers are responsible for any customs duties or taxes imposed by their
+                        country.</li>
+                </ul>
+            </div>
+
+            <div class="paragraph2">
+                <h3>💄 Product Returns & Exchanges</h3>
+                <ul class="ul">
+                    <li><strong>Return Eligibility:</strong>
+                        <ul class="ul1">
+                            <li>Returns must be initiated within 7 days of receiving your order.</li>
+
+                            <li>
+                                Products must be unused, unopened, and in their original packaging.
+                            </li>
+                            <li>Due to hygiene standards, we cannot accept returns on opened or used beauty products.
+
+                            </li>
+                        </ul>
+                    </li>
+
+
+                    <li>
+                        <strong>Return Process:</strong>
+                        <ul class="ul1">
+                            <li>
+                                Email support@graciabeauty.com with your order number and reason for return.
+                            </li>
+                            <li>We’ll provide you with return instructions and the return shipping address.</li>
+                            <li>Once we receive and inspect the returned items, we will process your refund.</li>
+
+                        </ul>
+                    </li>
+                    <li class="li"><strong>Return Shipping:</strong>
+                        Customers are responsible for return shipping costs unless the return is due to an error on our
+                        part (e.g., defective or incorrect item).
+                    </li>
+                </ul>
+            </div>
+
+
+            <div class="paragraph3">
+
+                <h3>💰 Refund Policy</h3>
+                <ul>
+                    <li> Refunds are processed back to the original payment method within 5–7 business days after we
+                        receive and
+                        inspect your return.</li>
+
+                    <li> You will receive a confirmation email once your refund has been issued.
+                    </li>
+                    <li>Shipping fees are non-refundable unless the return is due to our</li>
+                </ul>
+            </div>
+
+            <div class="paragraph3">
+                <h3>🧴 Damaged, Defective, or Incorrect Items</h3>
+                <p>If your order arrives damaged, defective, or incorrect:</p>
+
+                <ul>
+                    <li>Contact us within 48 hours of delivery at support@graciabeauty.com.</li>
+                    <li>Please include your order number and clear photos of the item(s) and packaging.</li>
+                    <li>We will arrange for a replacement or full refund, depending on your preference.</li>
+                </ul>
+            </div>
+
+            <div class="paragraph3">
+                <h3>🛒 Order Changes & Cancellations</h3>
+                <ul>
+                    <li>We begin processing orders quickly to ensure timely delivery, so we are unable to guarantee cancellations or changes once an order has been placed.</li>
+                    <li>If you need to make a change, contact us immediately, and we’ll do our best to assist you before your order ships.
+                    </li>
+                </ul>
+            </div>
+
+            <div class="paragraph3">
+                <h3>🔐 Privacy & Security</h3>
+                <ul>
+                    <li>Your privacy is important to us. We never share your personal or payment information with third parties.</li>
+                    <li>All transactions are encrypted and processed securely using trusted payment gateways.</li>
+                </ul>
+            </div>
+
+            <div class="lastparagraph">
+                <h3>💌 Customer Support</h3>
+                <p>Our customer service team is here to help with any questions or concerns:</p>
+                <p><strong>📧 Email:</strong> support@graciabeauty.com</p>
+                <p><strong>🕘 Hours:</strong>Monday – Friday, 9:00 AM – 5:00 PM (GMT or your time zone)</p>
+                <p>We aim to respond to all inquiries within 24 hours during business days.</p>
+            </div>
+
+            <div class="paragraph">
+                <p>Thank you for choosing Gracia Beauty. We appreciate your trust in our brand and are committed to making your shopping experience as smooth and satisfying as possible. Your beauty journey starts here — and we’re honored to be part of it.
+                </p>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <section class="newsletter">
+        <div class="news-wrapper">
+            <h1>Are you on the list?</h1>
+            <p>Join to get exclusive offers & discounts</p>
+            <form class="input-wrapper" id="newsletter">
+                <input type="email" placeholder="enter your email" id="email" name="email">
+                <button type="submit">join</button>
+            </form>
+        </div>
+    </section>
+    <div id="alertBox" class="alert">p.</div>
+    <footer>
+        <div class="footer">
+            <ul class="ul">
+                <h3>Shop</h3>
+                <li><a href="./otherhtmlpages/allproduct.html">All product</a></li>
+                <li><a href="./otherhtmlpages/newproduct.html">New</a></li>
+                <li><a href="./otherhtmlpages/bestselller.html">Best seller</a></li>
+                <li><a href="./otherhtmlpages/lips.html">Lips</a></li>
+                <li><a href="./otherhtmlpages/eyes.html">Eyes</a></li>
+                <li><a href="./otherhtmlpages/face.html">Face</a></li>
+            </ul>
+            <ul>
+                <h3>Our Store</h3>
+                <ul class="ul1">
+                    <li>500 Terry Francine Street</li>
+                    <li>San francisco, CA 94158</li>
+                </ul>
+                <ul class="ul2">
+                    <li>Monday-Friday : 11am-10pm</li>
+                    <li> Saturday-Sunday: 11am-12pm</li>
+                </ul>
+                <li>Tel: 081-391-300-40</li>
+                <li>Email: darasimigrace123@gmail.com</li>
+            </ul>
+            <ul class="ul3">
+                <h3>Policy</h3>
+                <li><a href="">Shipping & Returns</a></li>
+                <li><a href="">Store Policy</a> </li>
+                <li><a href="">Payment Methods</a> </li>
+                <li> FAQ</li>
+            </ul>
+            <ul class="ul4">
+                <h3>Customer Service</h3>
+                <li>Tel: 081-391-300-40</li>
+                <li>Email: darasimigrace123@gmail.com</li>
+                <ul class="social">
+                    <a href="http://www.instagram.com/lifewdaraa/"><i class="fa-brands fa-instagram insta"
+                            style="color: #ffffff;"></i></a>
+                    <a href=""> <i class="fa-brands fa-twitter insta" style="color: #ffffff;"></i></a>
+                    <a href="https://wa.me/message/FPHLPBSEH7NSI1"> <i class="fa-brands fa-whatsapp insta"
+                            style="color: #ffffff;"></i></a>
+                </ul>
+            </ul>
+        </div>
+        <p>© 2035 by Noelle. Powered and secured by Wix</p>
+    </footer>
+
+    <script>
+        function showMenu() {
+            const menu = document.getElementById("hiddenmenuBar");
+            menu.style.visibility = "visible";
+        }
+
+        function closeMenu() {
+            const menu = document.getElementById("hiddenmenuBar");
+            menu.style.visibility = "hidden";
+        }
+
+        document.getElementById('showSearchBar').addEventListener('click', () => {
+            document.getElementById("searchBar").style.display = "block";
+        });
+
+        document.getElementById('closeSearchBar').addEventListener('click', () => {
+            document.getElementById("searchBar").style.display = "none";
+        });
+
+
+    </script>
+</body>
+
+</html>
