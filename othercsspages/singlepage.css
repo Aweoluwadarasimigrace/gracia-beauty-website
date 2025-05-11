@@ -14,38 +14,6 @@
     align-items: center;
 }
 
-.search-box {
-    position: relative;
-    /* width: 300px; */
-}
-
-.search-box input {
-    border: none;
-    outline: none;
-    background-color: black;
-    padding: 10px 30px;
-    font-size: 13px;
-    color: white;
-    font-family: lato-light, lato, sans-serif;
-}
-
-.icon {
-    position: absolute;
-    top: 50%;
-    left: 10px;
-    transform: translateY(-54%);
-    font-size: 13px;
-}
-
-.search-box input::placeholder {
-    color: white;
-}
-
-
-.search-box input:hover {
-    border-bottom: 2px solid white;
-}
-
 .promoCode p {
     color: white;
     font-size: 15px;
@@ -56,6 +24,7 @@
     display: flex;
     gap: 1em;
 }
+
 
 /* media query for first header */
 
@@ -85,6 +54,7 @@
     top: 0;
     height: 100vh;
     z-index: 1000;
+    overflow-y: scroll;
 }
 
 .search-wrapper {
@@ -118,6 +88,40 @@
     color: black;
     margin-bottom: 25px;
     text-align: center;
+};
+
+
+.results-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .productCard {
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  .productCard img {
+   width: 50px;
+  }
+  
+.productCard a{
+    display: flex;
+    text-decoration: none;
+    align-items: center;
+    gap: .5em;
+    color: black;
+}
+.productCard h3{
+    font-weight: 400;
+    font-size: 17px;
+}
+
+.productCard p{
+    font-weight: 400;
+    font-size: 12px;
 }
 
 
@@ -197,13 +201,36 @@ nav {
     display: none;
 }
 
-.search-hide {
-    display: none;
-}
-
 .fa-bars {
     font-size: 23px;
 }
+
+.bag-wrap{
+    position: relative;
+    display: inline-block;
+    font-size: 24px;
+  }
+  
+  .cart-count-badge {
+    position: absolute;
+    top: -3px;
+    right: -10px;
+    background-color: black;
+    color: white;
+    font-size: 8px;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+
+  
+
+  
 
 /* media query for header */
 @media (max-width: 1024px) {
@@ -231,7 +258,6 @@ nav {
 
 
 /* hidden menu bar */
-
 
 .hiddenMenuBar {
     position: fixed;
@@ -733,7 +759,7 @@ nav {
     visibility: hidden;
 }
 
-
+/* ==footerr */
 
 .newsletter {
     background-color: black;

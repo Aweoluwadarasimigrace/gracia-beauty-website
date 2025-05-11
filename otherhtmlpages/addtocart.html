@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>GRACIA BEAUTY WEBSITE</title>
     <link rel="stylesheet" href="../othercsspages/addtocart.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="shortcut icon" href="../images/gracia.png" type="image/x-icon">
 </head>
 
 <body>
@@ -23,9 +24,11 @@
         </div>
 
         <div class="socials">
-            <a href="http://www.instagram.com/lifewdaraa/"><i class="fa-brands fa-instagram" style="color: #ffffff;"></i></a>
+            <a href="http://www.instagram.com/lifewdaraa/"><i class="fa-brands fa-instagram"
+                    style="color: #ffffff;"></i></a>
             <a href=""> <i class="fa-brands fa-twitter" style="color: #ffffff;"></i></a>
-            <a href="https://wa.me/message/FPHLPBSEH7NSI1"> <i class="fa-brands fa-whatsapp" style="color: #ffffff;"></i></a>
+            <a href="https://wa.me/message/FPHLPBSEH7NSI1"> <i class="fa-brands fa-whatsapp"
+                    style="color: #ffffff;"></i></a>
         </div>
     </div>
 
@@ -53,54 +56,88 @@
                     <i class="fa-regular fa-heart"></i>
                 </div>
                 <div class="search-hide">
-                    <i class="fa-solid fa-magnifying-glass" style="color: #000000;" onclick="showSearchBar()"></i>
+                    <i class="fa-solid fa-magnifying-glass" style="color: #000000;" id="showSearchBar"></i>
                 </div>
+               <div class="bag-wrap">
                 <i class="fa-solid fa-bag-shopping" style="color: #000000;"></i>
+                <span id="cartCount" class="cart-count-badge"></span>
+               </div>
+
 
                 <div class="menu-bar">
-                    <i class="fa-solid fa-bars" style="color: #000000;" onclick="showMenu()"></i>
+                    <i class="fa-solid fa-bars" style="color: #000000;" id="showMenu"></i>
                 </div>
             </div>
         </nav>
     </header>
 
     <div class="hiddenMenuBar" id="hiddenMenuBar">
-        <div class="close-mark"> <i class="fa-solid fa-xmark close" style="color: #000000;" onclick="closeMenu()"></i>
+        <div class="close-mark"> <i class="fa-solid fa-xmark close" style="color: #000000;" id="closeMenu"></i>
         </div>
 
         <ul>
             <li><a href="">LOGIN</a></li>
-            <li><a href="">SHOP ALL</a></li>
-            <li><a href="">NEW</a></li>
-            <li><a href="">BEST SELLER</a></li>
-            <li><a href="">FACE</a></li>
-            <li><a href="">LIPS</a></li>
-            <li><a href="">EYES</a></li>
+            <li><a href="./allproduct.html">SHOP ALL</a></li>
+            <li><a href="./newproduct.html">NEW</a></li>
+            <li><a href="./bestselller.html">BEST SELLER</a></li>
+            <li><a href="./face.html">FACE</a></li>
+            <li><a href="./lips.html">LIPS</a></li>
+            <li><a href="./eyes.html">EYES</a></li>
         </ul>
     </div>
 
     <div class="search-hidden" id="searchBar">
         <div class="search-wrapper">
-            <div class="close-mark"> <i class="fa-solid fa-xmark" style="color: #000000;"
-                    onclick="closeSearchBar()"></i></div>
+            <div class="close-mark"> <i class="fa-solid fa-xmark" style="color: #000000;" id="closeSearchBar"></i></div>
             <h1>What you are looking for?</h1>
             <input type="search" placeholder="search">
         </div>
     </div>
+    <!-- cart header -->
     <section class="cart-headerr">
         <h1>cart</h1>
     </section>
+
+    <!-- cart -->
     <section class="cart">
-        <div id="cart-container">
-            <div class="cart-header" id="cart-header">
-                <p class="product-title">Product</p>
-                <p class="price-title">Price</p>
-                <p class="quantity-title">Quantity</p>
-                <p class="subtotal-title">Subtotal</p>
-            </div>
-            <div id="cartContainer"></div>
+        <table id="cart-container">
+            <tr class="cart-header" id="cart-header">
+                <th>del</th>
+                <th class="product-title">Product</th>
+                <th class="price-title">Price</th>
+                <th class="quantity-title">Quantity</th>
+                <th class="subtotal-title">Subtotal</th>
+            </tr>
+            <tbody id="cartContainer"></tbody>
+        </table>
+
+
+        <div class="totalitems" id="totalitems" style="visibility: hidden;">
+          <div class="total-items">
+            <table>
+                <tr>
+                    <td> <strong>Subtotal:</strong></td>
+                    <td id="displaySubtotal" class="id"></td>
+                </tr>
+
+                <tr>
+                    <td> <strong>Tax:</strong></td>
+                    <td id="displayTax" class="id"></td>
+                </tr>
+
+                <tr>
+                    <td><strong>Total:</strong></td>
+                    <td id="displaytotal" class="id"></td>
+                </tr>
+
+
+            </table>
+          </div>
+            
+          <div class="items">
+            <button><a href="">CHECKOUT</a></button>
+          </div>
         </div>
-        
         <div class="cartempty" id="empty" style="display: none;">
             <h1>Your cart is currently empty.</h1>
             <p>Looks like you haven't made your choice yet...</p>
@@ -109,6 +146,11 @@
     </section>
     <div id="alertBox"></div>
 
+
+    <!-- total item -->
+
+
+    <!-- newsletter -->
     <section class="newsletter" id="news">
         <div class="news-wrapper">
             <h1>Are you on the list?</h1>
@@ -120,6 +162,7 @@
         </div>
     </section>
 
+    <!-- footer -->
     <footer id="footer">
         <div class="footer">
             <ul class="ul">
@@ -169,7 +212,7 @@
         <p>© 2035 by Noelle. Powered and secured by Wix</p>
     </footer>
 
-
+<script type="module" src="../otherjavascriptpages/displaycart.js"></script>
     <script type="module" src="../otherjavascriptpages/addtocart.js"></script>
 </body>
 

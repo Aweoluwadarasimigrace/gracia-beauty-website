@@ -1,7 +1,7 @@
 // Firebase & EmailJS Integration
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-import { getFirestore, getDocs, collection, addDoc, query, where } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+import { getFirestore, getDocs, collection, addDoc, query, where, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
 // EmailJS Library
 import * as emailjs from 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
@@ -66,14 +66,7 @@ newsletterForm.addEventListener('submit', async (e) => {
 shopbestseller.addEventListener('click', () => {
     window.location.href = "./otherhtmlpages/bestselller.html";
 });
-
-
-
-
-
-
-
-
+// == show and hide  ==
 document.getElementById('showMenu').addEventListener('click', showMenu);
 
 document.getElementById('closeMenu').addEventListener('click', closeMenu);
@@ -81,7 +74,6 @@ document.getElementById('closeMenu').addEventListener('click', closeMenu);
 document.getElementById('showSearchBar').addEventListener('click', showSearchBar);
 
 document.getElementById('closeSearchBar').addEventListener('click', closeSearchBar);
-
 
 function showMenu() {
   let menuList = document.getElementById("hiddenmenuBar");
@@ -102,6 +94,41 @@ function closeSearchBar() {
   let searchbar = document.getElementById("searchBar");
   searchbar.style.display = "none";
 }
+
+
+//get search items 
+
+const productCollection = ['bestsellers', 'trending'];
+
+async function searchproductByname(searchTerm) {
+    const results = [];
+
+    try {
+       for (const products of productCollection) {
+        const refs = collection(db, products);
+        console.log(`Checking collection: ${products}`);
+        const snapshot = await getDocs(refs);
+
+        snapshot.forEach((doc)=>{
+            const data = doc.data();
+            const nameMatch = data.productname?.toLowerCase().includes(searchTerm);
+            console.log(nameMatch);
+            
+            // console.log("Product:", doc.productname.toLowerCase());
+            if (nameMatch) {
+                results.push({id: doc.id, ...doc.data()});
+            }
+        });
+       };
+
+    } catch (error) {
+        console.log(error);
+        
+    };
+
+    return results
+}
+
 
 
 
@@ -140,79 +167,45 @@ async function getBestsellers() {
 
     }
 }
-// add to cart for bestseller
+
 window.addTocart = async function (productId) {
-    const product = bestSeller.find((products) => products.id === productId)
+    const product = [...bestSeller, ...trending].find(p => p.id === productId);
+
+    if (!product) {
+        showAlert("Product not found.");
+        return;
+    }
+
     try {
         const q = query(cartRef, where('productId', '==', product.id));
         const querySnapshot = await getDocs(q);
+
         if (!querySnapshot.empty) {
+            showAlert(`Item is already in cart. <a href='cart.html' style="color:blue;text-decoration:underline;">Click here to view it.</a>`);
+        } else {
+            // const quantity = 1;
+            const subtotal = product.price * product.quantity;
 
-            const docToupdate = querySnapshot.docs[0];
-            const newQuantity = docToupdate.data().quantity || 1;
-            const cartref = doc(db, 'cart', docToupdate.id);
-
-            await updateDoc(cartref, {
-                quantity: newQuantity + 1
-            });
-// alert('added')
-            showAlert('updatedCart Sucessful')
-        } 
-        
-        else {
             await addDoc(cartRef, {
-                image: product.image,
                 productId: product.id,
                 productname: product.productname,
                 productdescription: product.productdescription,
+                image: product.image, // Keep full array for hover
                 price: product.price,
-                quantity: product.quantity
+                quantity: product.quantity,
+                category: product.category,
+                subtotal
             });
-            showAlert('added to cart succesfully')
-        }
+            window.updateCartCount();
 
-    } catch (error) {
-        console.log(error);
-
-    }
-
-}
-// addd to carttrending
-
-window.addToCart = async function (productId) {
-
-    const products = trending.find((product) => product.id === productId);
-    try {
-
-        const q = query(cartRef, where('productId', '==', products.id));
-        const querySnapshot = await getDocs(q)
-        if (!querySnapshot.empty) {
-            const docToupdate = querySnapshot.docs[0];
-            const newQuantity = docToupdate.data().quantity || 1;
-            const cartref = doc(db, 'cart', docToupdate.id)
-
-            await updateDoc(cartref, {
-                quantity: newQuantity + 1
-            });
-            showAlert('already in cart')
-        }
-        else {
-            await addDoc(cartRef, {
-                image: products.image,
-                productdescription: products.productdescription,
-                productname: products.productname,
-                price: products.price,
-                productId: products.id,
-                quantity: products.quantity
-            })
-
-            showAlert('added to cart successfully')
+            showAlert("Added to cart successfully.");
         }
     } catch (error) {
-        console.log(error);
-
+        console.error("Error adding to cart:", error);
+        showAlert("Failed to add to cart.");
     }
-}
+};
+
 
 
 
@@ -243,7 +236,7 @@ function displayTrending() {
     trending.forEach((products) => {
         trendingContainer.innerHTML += `
  <div class='box'>
-                <a href="./otherhtmlpages/singlepage.html?id=${products.id}&cameFrom = trending">
+                <a href="./otherhtmlpages/singlepage.html?id=${products.id}">
                 <img src='${products.image}' class='img-scale'>
                  <div class = 'wrapper'>
                     <p>${products.productname}</p>
@@ -251,12 +244,58 @@ function displayTrending() {
                  </div>
 
                 </a> 
-                <button onclick="addToCart('${products.id}')" class = 'addtocart'>add to cart</button>
+                <button onclick="addTocart('${products.id}')" class = 'addtocart'>add to cart</button>
             </div>
 
         `
     })
+};
+
+
+
+//display search results
+
+function displaySearchResults(searchResult) {
+   let searchContainer = document.getElementById('searchContainer') ;
+   searchContainer.innerHTML = '';
+
+if (searchResult.length === 0) {
+    searchContainer.innerHTML = `<p> no product available</p>`
+    return
 }
+   
+searchResult.forEach(product=>{
+    searchContainer.innerHTML += `
+     <div class="productCard">
+        <a href="./otherhtmlpages/singlepage.html?id=${product.id}">
+            <img src="${product.image}" alt="">
+           <div class="details">
+            <h3>${product.productname}</h3>
+            <p>$${product.price}.00</p>
+           </div>
+        </a>
+    </div>
+    `
+})
+
+};
+
+
+//function perfoming the search
+
+document.getElementById('searchTerm').addEventListener('input', async (e) => {
+    const searchTerm = e.target.value.trim().toLowerCase();
+  
+    if (searchTerm === '') {
+      document.getElementById('searchContainer').innerHTML = '';
+      return;
+    }
+    const results = await searchproductByname(searchTerm);
+    displaySearchResults(results);
+  });
+  
+
+
 function showAlert(message) {
 
     alertBox.innerHTML = message;
@@ -268,3 +307,5 @@ function showAlert(message) {
 }
 getTrending();
 getBestsellers();
+
+// window.updateCartCount();

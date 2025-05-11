@@ -4,11 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>GRACIA BEAUTY WEBSITE</title>
+
     <link rel="stylesheet" href="../othercsspages/storepolicy.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="shortcut icon" href="../images/gracia.png" type="image/x-icon">
 </head>
 
 <body>
@@ -39,11 +41,11 @@
             </div>
             <ul class="menu-list">
                 <li><a href="./allproduct.html">SHOP ALL</a></li>
-                <li><a href="./otherhtmlpages/newproduct.html">NEW</a></li>
-                <li><a href="./otherhtmlpages/bestselller.html">BEST SELLER</a></li>
-                <li><a href="./otherhtmlpages/face.html">FACE</a></li>
-                <li><a href="./otherhtmlpages/lips.html">LIPS</a></li>
-                <li><a href="./otherhtmlpages/eyes.html">EYES</a></li>
+                <li><a href="./newproduct.html">NEW</a></li>
+                <li><a href="./bestselller.html">BEST SELLER</a></li>
+                <li><a href="./face.html">FACE</a></li>
+                <li><a href="./lips.html">LIPS</a></li>
+                <li><a href="./eyes.html">EYES</a></li>
             </ul>
             <div class="login-icon">
                 <div class="login">
@@ -57,9 +59,11 @@
                 <div class="search-hide">
                     <i class="fa-solid fa-magnifying-glass" style="color: #000000;" id="showSearchBar"></i>
                 </div>
-                <a href="./otherhtmlpages/addtocart.html"> <i class="fa-solid fa-bag-shopping"
-                        style="color: #000000;"></i>
-                </a>
+                <div class="bag-wrap">
+                    <a href="./addtocart.html"> <i class="fa-solid fa-bag-shopping" style="color: #000000;"></i></a>
+                     <span id="cartCount" class="cart-count-badge"></span>
+                    </div>
+     
                 <div class="menu-bar" onclick="showMenu()">
                     <i class="fa-solid fa-bars" style="color: #000000;"></i>
                 </div>
@@ -73,12 +77,12 @@
 
         <ul>
             <li><a href="">LOGIN</a></li>
-            <li><a href="./otherhtmlpages/allproduct.html">SHOP ALL</a></li>
-            <li><a href="./otherhtmlpages/newproduct.html">NEW</a></li>
-            <li><a href="./otherhtmlpages/bestselller.html">BEST SELLER</a></li>
-            <li><a href="./otherhtmlpages/face.html">FACE</a></li>
-            <li><a href="./otherhtmlpages/lips.html">LIPS</a></li>
-            <li><a href="./otherhtmlpages/eyes.html">EYES</a></li>
+            <li><a href="./allproduct.html">SHOP ALL</a></li>
+            <li><a href="./newproduct.html">NEW</a></li>
+            <li><a href="./bestselller.html">BEST SELLER</a></li>
+            <li><a href="./face.html">FACE</a></li>
+            <li><a href="./lips.html">LIPS</a></li>
+            <li><a href="./eyes.html">EYES</a></li>
         </ul>
     </div>
 
@@ -243,12 +247,12 @@
         <div class="footer">
             <ul class="ul">
                 <h3>Shop</h3>
-                <li><a href="./otherhtmlpages/allproduct.html">All product</a></li>
-                <li><a href="./otherhtmlpages/newproduct.html">New</a></li>
-                <li><a href="./otherhtmlpages/bestselller.html">Best seller</a></li>
-                <li><a href="./otherhtmlpages/lips.html">Lips</a></li>
-                <li><a href="./otherhtmlpages/eyes.html">Eyes</a></li>
-                <li><a href="./otherhtmlpages/face.html">Face</a></li>
+                <li><a href="./allproduct.html">All product</a></li>
+                <li><a href="./newproduct.html">New</a></li>
+                <li><a href="./bestselller.html">Best seller</a></li>
+                <li><a href="./lips.html">Lips</a></li>
+                <li><a href="./eyes.html">Eyes</a></li>
+                <li><a href="./face.html">Face</a></li>
             </ul>
             <ul>
                 <h3>Our Store</h3>
@@ -286,6 +290,7 @@
         <p>© 2035 by Noelle. Powered and secured by Wix</p>
     </footer>
 
+    <script type="module" src="../otherjavascriptpages/displaycart.js"></script>
     <script>
         function showMenu() {
             const menu = document.getElementById("hiddenmenuBar");
@@ -305,7 +310,7 @@
             document.getElementById("searchBar").style.display = "none";
         });
 
-
+        window.updateCartCount();
     </script>
 </body>
 
