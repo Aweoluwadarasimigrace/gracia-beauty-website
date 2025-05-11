@@ -515,6 +515,7 @@ margin-bottom: 4px;
     padding: 12px 25px;
     background-color: transparent;
     transition: all .9s ease;
+    color: white;
 }
 .shopBestseller:hover {
     background-color: black;

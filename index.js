@@ -33,6 +33,8 @@ let trendingContainer = document.getElementById('trendingContainer');
 // HTML Elements
 const newsletterForm = document.getElementById('newsletter');
 const shopbestseller = document.getElementById('shopBestseller');
+const shoplip = document.getElementById('shoplip');
+const shopNow = document.getElementById('shopNow');
 
 // Initialize EmailJS
 
@@ -66,6 +68,15 @@ newsletterForm.addEventListener('submit', async (e) => {
 shopbestseller.addEventListener('click', () => {
     window.location.href = "./otherhtmlpages/bestselller.html";
 });
+
+shoplip.addEventListener('click', ()=>{
+    window.location.href = './otherhtmlpages/lips.html';
+});
+shopNow.addEventListener('click', ()=>{
+    window.location.href = './otherhtmlpages/allproduct.html'
+})
+
+
 // == show and hide  ==
 document.getElementById('showMenu').addEventListener('click', showMenu);
 
