@@ -123,6 +123,17 @@
     font-size: 12px;
 }
 
+.profileimage{
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
+.profileimage img{
+    width: 40px;
+    border-radius: 50%;
+    height: 40px;
+}
+
 /* search bar media query */
 @media (max-width: 570px) {
     .search-wrapper {
@@ -515,7 +526,7 @@ margin-bottom: 4px;
     padding: 12px 25px;
     background-color: transparent;
     transition: all .9s ease;
-    color: white;
+    color: black;
 }
 .shopBestseller:hover {
     background-color: black;

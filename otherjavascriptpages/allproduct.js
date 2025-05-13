@@ -1,14 +1,9 @@
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
 import {
   getFirestore,
   getDocs,
   collection,
 } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-import {
-  getAuth,
-  onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB8ssLFBwiDqNb_Qc5lfnjazBHy6yDxxtA",
@@ -22,19 +17,13 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-const auth = getAuth(app);
+const colRef = collection(db, 'cart');
 
 window.updateCartCount = async function () {
-  const user = auth.currentUser;
-  if (!user) {
-    console.log("No user logged in. Skipping cart count.");
-    return;
-  }
-
   try {
-    const userCartRef = collection(db, "user", user.uid, "cart");
-    const snapshot = await getDocs(userCartRef);
-    const cartCount = snapshot.docs.length;
+    const snapshot = await getDocs(colRef);
+    const cartArray = snapshot.docs.map(doc => doc.data());
+    const cartCount = cartArray.length;
 
     const cartCountElement = document.getElementById('cartCount');
     if (cartCountElement) {
@@ -44,10 +33,4 @@ window.updateCartCount = async function () {
     console.log("Error updating cart count:", error);
   }
 };
-
-// Automatically update when auth state is ready
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    window.updateCartCount();
-  }
-});
+window.updateCartCount();

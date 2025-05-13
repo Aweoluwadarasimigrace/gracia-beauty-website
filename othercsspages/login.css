@@ -1,0 +1,27 @@
+#alertBox {
+    position: fixed;
+    display: none;
+    max-width: 350px;
+    background-color: white;
+    color: black;
+    z-index: 1000;
+    right: -350px;
+    top: 100px;
+    min-width: 250px;
+    padding: 10px 15px;
+    border-radius: 4px;
+    animation: slideinRight 2s forwards;
+    /* border: 2px solid black; */
+}
+
+@keyframes slideinRight {
+    from {
+        right: -350px;
+        opacity: 0;
+    }
+
+    to {
+        right: 22px;
+        opacity: 1;
+    }
+}

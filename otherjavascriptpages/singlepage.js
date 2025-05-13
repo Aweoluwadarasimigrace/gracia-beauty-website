@@ -11,6 +11,10 @@ import {
   doc,
   updateDoc,
 } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+import {
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 // === Firebase Config ===
 const firebaseConfig = {
   apiKey: "AIzaSyB8ssLFBwiDqNb_Qc5lfnjazBHy6yDxxtA",
@@ -22,25 +26,42 @@ const firebaseConfig = {
   measurementId: "G-D15XM34EE3",
 };
 
+// const auth = getAuth(app);
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth(app);
+
 const urlParams = new URLSearchParams(window.location.search);
 const productId = urlParams.get("id");
 const colRef = doc(db, "bestsellers", productId);
 const trendingRef = doc(db, "trending", productId);
-const addtoCart = doc(db, 'cart', productId);
-const cartRef = collection(db, "cart");
-let bestSeller = [], trending = [], relatedProduct = [], relatedTrendingProduct = [], cart = []
+let bestSeller = [], trending = [], relatedProduct = [], relatedTrendingProduct = [], cart = [];
+
+
+// === Auth State Change ===
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+   getaddtoCart();
+   window.updateCartCount();
+  }
+});
+
+
 
 // === fetch add to cart product ==
 async function getaddtoCart() {
+  const user = auth.currentUser;
+  if(!user) return;
+
+  
   try {
-    const snapshot = await getDoc(addtoCart);
+    const cartRef = doc(db, "user", user.uid, "cart", productId);
+    const snapshot = await getDoc(cartRef);
     if (snapshot.exists()) {
       const product = {id: snapshot.id, ...snapshot.data()};
       cart.push(product);
-     getRelatedProduct(product)
       displayTrendingProduct(cart);
+      getRelatedProduct(product)
       loaderr.style.display = 'none';
        loader.style.display = 'none'
       loader.hidden = true
@@ -60,7 +81,11 @@ async function getaddtoCart() {
 
 
 window.updateCartCount = async function () {
+  const user = auth.currentUser;
+  if (!user) return;
+
   try {
+    const cartRef = collection(db, "user", user.uid, "cart");
     const snapshot = await getDocs(cartRef);
     const cartArray = snapshot.docs.map(doc => doc.data());
     const cartCount = cartArray.length;
@@ -74,8 +99,6 @@ window.updateCartCount = async function () {
   }
 };
 
-// Automatically run on load
-window.updateCartCount();
 
 
 // === Fetch Product ===
@@ -125,14 +148,24 @@ async function getsingleTrendingProduct() {
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 
-//  == related product using for ..of loop
+// === Get Related Products from Multiple Collections ===
 
-let array = ['bestsellers', 'trending'];
+let array = ['bestsellers', 'trending', 'lipgloss product'];
+
+
 async function getRelatedProduct(currentProduct) {
-  const relatedProduct = [];
+  const user = auth.currentUser
+  if (!user) return;
+
+
+
+  const cartId = collection(db, 'user', user.uid, 'cart')
+  const cartSnapshot = await getDocs(cartId);
+  const cartProductId = cartSnapshot.docs.map(doc=>
+    doc.data().productId)
 
   try {
     for (const collectionName of array) {
@@ -141,10 +174,9 @@ async function getRelatedProduct(currentProduct) {
       const q = query(relatedRef, where('category', '==', currentProduct.category));
       const snapshot = await getDocs(q);
       snapshot.forEach((doc)=>{
-        if (doc.id !== currentProduct.id) {
+        if (doc.id !== currentProduct.id && !cartProductId.includes(doc.data().productId)) {
           relatedProduct.push({id: doc.id, ...doc.data()});
-          console.log(relatedProduct);
-          
+         
         }
       });
       
@@ -158,133 +190,39 @@ async function getRelatedProduct(currentProduct) {
 }
 
 
-// === Display Functions ===
-function displayRelatedProduct(product) {
-  const box = document.getElementById("youmightalsolike");
-  box.innerHTML= ''
- product.forEach((p) => {
-    box.innerHTML +=
-    `
-    <div class='box'>
-      <a href="./singlepage.html?id=${p.id}&cameFrom=bestsellers">
-        <img src='${p.image}' class='img-scale'>
-        <div class='wrapper'>
-          <p>${p.productname}</p>
-          <p>$${p.price}.00</p>
-        </div>
-      </a>
-      <button onclick="addToCart('${p.id}')" class="addtocart">Add to Cart</button>
-    </div>
-  `
- })
-}
-
-
-function createSwiper(imageArray) {
-  const slides = imageArray.map((img) => `
-    <div class="swiper-slide"><img src="${img}"></div>
-  `).join("");
-  return `<div class="swiper mySwiper"><div class="swiper-wrapper">${slides}</div><div class="swiper-pagination"></div></div>`;
-}
-
-function setupQuantityButtons() {
-  const qtyInput = document.getElementById("quantity");
-  document.getElementById("increaseBtn").addEventListener("click", () => {
-    qtyInput.value = parseInt(qtyInput.value) + 1;
-  });
-  document.getElementById("decreaseBtn").addEventListener("click", () => {
-    if (parseInt(qtyInput.value) > 1) qtyInput.value = parseInt(qtyInput.value) - 1;
-  });
-}
-
-function displayTrendingProduct(products) {
-  const container = document.getElementById("containerr");
-  container.innerHTML = products.map(product => `
-    <div class="image-wrappers">
-      <img src="${product.image}" alt="">
-    </div>
-    <div class="product-title">
-      <div class="title-wrapper">
-        <h1>${product.productname}</h1>
-        <p class="price">$${product.price}.00</p>
-        <p class="category">${product.category}</p>
-        <p class = 'description'>${product.productdescription}</p>
-      </div>
-      <div class="quantity-control">
-        <button id="decreaseBtn">-</button>
-        <input type="number" id="quantity" value="1" min="1" readonly>
-        <button id="increaseBtn">+</button>
-      </div>
-      <div class="addtoCart">
-        <button class="btn" onclick="addToCart('${product.id}')">Add to Cart</button>
-        <button class="btn2" onclick=''addtowishList('${product.id}')><i class="fa-regular fa-heart"></i></button>
-      </div>
-    </div>
-  `).join("");
-  setupQuantityButtons();
-}
-
-function displaybestsellerProduct(products) {
-  const container = document.getElementById("containerr");
-  container.innerHTML = products.map(product => `
-    <div class="image-wrapperr">
-      ${createSwiper(product.image)}
-    </div>
-    <div class="product-title">
-      <div class="title-wrapper">
-        <h1>${product.productname}</h1>
-        <p class="price">$${product.price}.00</p>
-        <p class="category">Category: ${product.category}</p>
-        <p class='description' > ${product.productdescription}</p>
-      </div>
-      <div class="quantity-control">
-        <button id="decreaseBtn">-</button>
-        <input type="number" id="quantity" value="1" min="1" readonly>
-        <button id="increaseBtn">+</button>
-      </div>
-      <div class="addtoCart">
-        <button class="btn" onclick="addToCart('${product.id}')">Add to Cart</button>
-        <button class="btn2" onclick=''addtowishList('${product.id}')><i class="fa-regular fa-heart"></i></button>
-      </div>
-
-
-    </div>
-  `).join("");
-  setupQuantityButtons();
-
-  new Swiper(".mySwiper", {
-    pagination: {
-      el: ".swiper-pagination",
-      clickable: true,
-    },
-  });
-}
-
-// == wishlist function ==
-
-// window.addtowishList = async function (productId) {
-  
-// }
 
 // === Cart Function ===
+
+
 window.addToCart = async function (productId) {
+  const user = auth.currentUser;
+  if (!user) {
+    showAlert('Login before you can add to cart');
+    return;
+  };
+
   const qtyInput = document.getElementById("quantity");
   const quantityToAdd = parseInt(qtyInput?.value || 1);
+
   const product = [...bestSeller, ...trending, ...cart, ...relatedProduct, ...relatedTrendingProduct].find(p => p.id === productId);
   if (!product) return;
 
   try {
+    const cartRef = collection(db, "user", user.uid, "cart");
     const q = query(cartRef, where("productId", "==", product.id));
     const snapshot = await getDocs(q);
+
     if (!snapshot.empty) {
-      const docToUpdate = snapshot.docs[0]; //gets the first document stored in firebase
-      const cartItemRef = doc(db, "cart", docToUpdate.id);
+      const docToUpdate = snapshot.docs[0];//gets the first document
+      const cartItemRef = doc(db, "user", user.uid, "cart", docToUpdate.id);
       const newQuantity = (docToUpdate.data().quantity || 1) + quantityToAdd;
       const newSubtotal = product.price * newQuantity;
-      await updateDoc(cartItemRef, { quantity: newQuantity ,
-        subtotal: newSubtotal 
+
+      await updateDoc(cartItemRef, {
+        quantity: newQuantity,
+        subtotal: newSubtotal,
       });
-      showAlert("UPDATED CART SUCCESSFULLY");
+      showAlert("Updated cart successfully!");
     } else {
       const subtotal = product.price * quantityToAdd;
       await addDoc(cartRef, {
@@ -297,16 +235,72 @@ window.addToCart = async function (productId) {
         category: product.category,
         subtotal: subtotal
       });
-      // window.updateCartCount();
-      window.updateCartCount();
-
-      showAlert("ADDED TO CART");
+      showAlert("Added to cart!");
     }
+
+    window.updateCartCount(); // update cart bubble
   } catch (error) {
     console.log("Error adding to cart:", error);
   }
 };
 
+// ==add eventlisner for the button ==
+
+
+function setWishlist() {
+  const wishlistBtns = document.querySelectorAll(".addToWishlistBtn");
+  wishlistBtns.forEach(btn => {
+    const productId = btn.dataset.productId;
+
+    // Attach click event listener
+    btn.addEventListener('click', () => {
+      window.addtowishList(productId);
+    });
+  });
+}
+// == wishlist function ==
+
+window.addtowishList = async function (productId) {
+  const user = auth.currentUser;
+  if (!user) {
+    showAlert('Login before you can add to wishlist');
+    return;
+  }
+
+  const product = [...bestSeller, ...trending, ...cart, ...relatedProduct, ...relatedTrendingProduct].find(p => p.id === productId);
+  if (!product) return;
+
+  const quantityToAdd = 1;
+  const subtotal = product.price * quantityToAdd;
+
+  try {
+    const wishRef = collection(db, 'user', user.uid, 'wishlist');
+    const q = query(wishRef, where('productId', '==', product.id));
+    const snapshot = await getDocs(q);
+
+    if (!snapshot.empty) {
+      showAlert('Item is already in the wishlist');
+    } else {
+      await addDoc(wishRef, {
+        image: product.image,
+        productdescription: product.productdescription,
+        productname: product.productname,
+        price: product.price,
+        productId: product.id,
+        quantity: quantityToAdd,
+        category: product.category,
+        subtotal: subtotal
+      });
+      showAlert('Added to wishlist');
+    }
+  } catch (error) {
+    console.log(error);
+    showAlert('Failed to add to wishlist');
+  }
+};
+
+
+// === Search Product by Name ===
 
 const productCollection = ['bestsellers', 'trending'];
 
@@ -359,32 +353,134 @@ searchResult.forEach(product=>{
 
 };
 
-//function perfoming the search
-
 document.getElementById('searchTerm').addEventListener('input', async (e) => {
-   const searchTerm = e.target.value.trim().toLowerCase();
- 
-   if (searchTerm === '') {
-     document.getElementById('searchContainer').innerHTML = '';
-     return;
-   }
-   const results = await searchproductByname(searchTerm);
-   displaySearchResults(results);
- });
- 
+  const searchTerm = e.target.value.trim().toLowerCase();
+
+  if (searchTerm === '') {
+    document.getElementById('searchContainer').innerHTML = '';
+    return;
+  }
+  const results = await searchproductByname(searchTerm);
+  displaySearchResults(results);
+});
+
+
+
+
+// === Display Functions ===
+function displayRelatedProduct(product) {
+  const box = document.getElementById("youmightalsolike");
+  box.innerHTML= ''
+ product.forEach((p) => {
+    box.innerHTML +=
+    `
+    <div class='box'>
+      <a href="./singlepage.html?id=${p.id}&cameFrom=bestsellers">
+        <img src='${p.image}' class='img-scale'>
+        <div class='wrapper'>
+          <p>${p.productname}</p>
+          <p>$${p.price}.00</p>
+        </div>
+      </a>
+      <button onclick="addToCart('${p.id}')" class="addtocart">Add to Cart</button>
+    </div>
+  `
+ })
+}
+
+
+function displayTrendingProduct(products) {
+  const container = document.getElementById("containerr");
+  container.innerHTML = products.map(product => `
+    <div class="image-wrappers">
+      <img src="${product.image}" alt="">
+    </div>
+    <div class="product-title">
+      <div class="title-wrapper">
+        <h1>${product.productname}</h1>
+        <p class="price">$${product.price}.00</p>
+        <p class="category">${product.category}</p>
+        <p class = 'description'>${product.productdescription}</p>
+      </div>
+      <div class="quantity-control">
+        <button id="decreaseBtn">-</button>
+        <input type="number" id="quantity" value="1" min="1" readonly>
+        <button id="increaseBtn">+</button>
+      </div>
+      <div class="addtoCart">
+        <button class="btn" onclick="addToCart('${product.id}')">Add to Cart</button>
+        <button class="btn2 addToWishlistBtn" data-product-id = "${product.id}"><i class="fa-regular fa-heart"></i></button>
+      </div>
+    </div>
+  `);
+  setupQuantityButtons();
+  setWishlist()
+}
+
+function displaybestsellerProduct(products) {
+  const container = document.getElementById("containerr");
+  container.innerHTML = products.map(product => `
+    <div class="image-wrapperr">
+      ${createSwiper(product.image)}
+    </div>
+    <div class="product-title">
+      <div class="title-wrapper">
+        <h1>${product.productname}</h1>
+        <p class="price">$${product.price}.00</p>
+        <p class="category">Category: ${product.category}</p>
+        <p class='description' > ${product.productdescription}</p>
+      </div>
+      <div class="quantity-control">
+        <button id="decreaseBtn">-</button>
+        <input type="number" id="quantity" value="1" min="1" readonly>
+        <button id="increaseBtn">+</button>
+      </div>
+      <div class="addtoCart">
+        <button class="btn" onclick="addToCart('${product.id}')">Add to Cart</button>
+        <button class="btn2 addToWishlistBtn" data-product-id ="${product.id}"><i class="fa-regular fa-heart"></i></button>
+      </div>
+
+
+    </div>
+  `).join("");
+  setupQuantityButtons();
+  setWishlist();
+
+  new Swiper(".mySwiper", {
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+  });
+};
+
+function createSwiper(imageArray) {
+  const slides = imageArray.map((img) => `
+    <div class="swiper-slide"><img src="${img}"></div>
+  `).join("");
+  return `<div class="swiper mySwiper"><div class="swiper-wrapper">${slides}</div><div class="swiper-pagination"></div></div>`;
+}
+
+function setupQuantityButtons() {
+  const qtyInput = document.getElementById("quantity");
+  document.getElementById("increaseBtn").addEventListener("click", () => {
+    qtyInput.value = parseInt(qtyInput.value) + 1;
+  });
+  document.getElementById("decreaseBtn").addEventListener("click", () => {
+    if (parseInt(qtyInput.value) > 1) qtyInput.value = parseInt(qtyInput.value) - 1;
+  });
+};
+
+
 
 
 
 // === Misc UI Functions ===
 
 document.getElementById('showMenu').addEventListener('click', showMenu);
-
 document.getElementById('closeMenu').addEventListener('click', closeMenu);
-
 document.getElementById('showSearchBar').addEventListener('click', showSearchBar);
-
 document.getElementById('closeSearchBar').addEventListener('click', closeSearchBar);
-
 
 function showMenu() {
   let menuList = document.getElementById("hiddenMenuBar");
@@ -407,32 +503,9 @@ function closeSearchBar() {
 }
 
 
-
-// === Back Navigation ===
-// function backLink() {
-//   const backPage = document.getElementById("display");
-
-//   const urlParams = new URLSearchParams(window.location.search);
-//   const cameFrom = urlParams.get("cameFrom"); // ✅ Get cameFrom from the URL
-
- 
-//   if (cameFrom === 'cart') {
-//     backPage.innerHTML = `<a href="index.html#addtocart">Back to Cart</a>`;
-//   } else {
-//     backPage.innerHTML = `<a href="../index.html">Back to Home</a>`;
-//   }
-// }
-
-// window.addEventListener('DOMContentLoaded', backLink);
-
-// backLink();
-
-
 // === Newsletter ===
 
 const alertBox = document.getElementById("alertBox");
-
-
 export function showAlert(message) {
   alertBox.innerHTML = message;
   alertBox.style.display = "block";
@@ -442,4 +515,4 @@ export function showAlert(message) {
 // === Init ===
 getBestsellerProduct();
 getsingleTrendingProduct();
-getaddtoCart()
+// getaddtoCart();

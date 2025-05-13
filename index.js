@@ -3,8 +3,10 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
 import { getFirestore, getDocs, collection, addDoc, query, where, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-// EmailJS Library
-import * as emailjs from 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
+import {
+    getAuth,
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
 // Firebase Configuration
 const firebaseConfig = {
@@ -20,10 +22,10 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth(app);
 
 // Firestore Collections
-const newsletterRef = collection(db, 'newsletter');
-const cartRef = collection(db, 'cart');
+// const cartRef = collection(db, 'cart');
 const colRef = collection(db, 'bestsellers');
 const trendingRef = collection(db, 'trending');
 const trending = [];
@@ -31,38 +33,10 @@ const bestSeller = [];
 let container = document.getElementById('container');
 let trendingContainer = document.getElementById('trendingContainer');
 // HTML Elements
-const newsletterForm = document.getElementById('newsletter');
 const shopbestseller = document.getElementById('shopBestseller');
 const shoplip = document.getElementById('shoplip');
 const shopNow = document.getElementById('shopNow');
 
-// Initialize EmailJS
-
-// emailjs.init('8EE44vqqd4TnnSdiU'); 
-
-// Newsletter Form Submission Handler
-newsletterForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    let email = document.getElementById('email').value;
-
-    // Check if email already exists in the Firestore
-    const q = query(newsletterRef, where('email', '==', email));
-    const querySnapshot = await getDocs(q);
-    if (!querySnapshot.empty) {
-        showAlert('Email already registered');
-        return;
-    }
-
-    // Add email to the newsletter collection and send confirmation via EmailJS
-    try {
-        await addDoc(newsletterRef, { email });
-        await emailjs.sendForm('service_vbjomvt', 'template_pzgjgqe', '#newsletter');
-        showAlert('Subscribed successfully');
-        newsletterForm.reset(); // Reset the form
-    } catch (error) {
-        console.error('Error subscribing to newsletter:', error);
-    }
-});
 
 // Redirect user to Bestsellers page
 shopbestseller.addEventListener('click', () => {
@@ -109,7 +83,7 @@ function closeSearchBar() {
 
 //get search items 
 
-const productCollection = ['bestsellers', 'trending'];
+const productCollection = ['bestsellers', 'trending', 'eyes'];
 
 async function searchproductByname(searchTerm) {
     const results = [];
@@ -124,8 +98,6 @@ async function searchproductByname(searchTerm) {
             const data = doc.data();
             const nameMatch = data.productname?.toLowerCase().includes(searchTerm);
             console.log(nameMatch);
-            
-            // console.log("Product:", doc.productname.toLowerCase());
             if (nameMatch) {
                 results.push({id: doc.id, ...doc.data()});
             }
@@ -134,7 +106,6 @@ async function searchproductByname(searchTerm) {
 
     } catch (error) {
         console.log(error);
-        
     };
 
     return results
@@ -180,6 +151,13 @@ async function getBestsellers() {
 }
 
 window.addTocart = async function (productId) {
+
+    const user = auth.currentUser;
+    if (!user) {
+        showAlert("Please log in to add items to your cart.");
+        return;
+    }
+
     const product = [...bestSeller, ...trending].find(p => p.id === productId);
 
     if (!product) {
@@ -188,6 +166,7 @@ window.addTocart = async function (productId) {
     }
 
     try {
+        const cartRef = collection(db, "user", user.uid, "cart");
         const q = query(cartRef, where('productId', '==', product.id));
         const querySnapshot = await getDocs(q);
 
@@ -216,9 +195,6 @@ window.addTocart = async function (productId) {
         showAlert("Failed to add to cart.");
     }
 };
-
-
-
 
 function displayBestSellers() {
     bestSeller.forEach((product) => {
@@ -263,6 +239,36 @@ function displayTrending() {
 };
 
 
+// ==function to display username 
+
+onAuthStateChanged(auth, (user)=>{
+  getcurrentUser(user?.uid);
+
+})
+
+
+async function getcurrentUser(userId) {
+    const colRef = collection(db, "user");
+    const q = query(colRef, where('userId', '==', userId));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((user)=>{
+        displayUser(user.data())
+    })
+}
+
+
+
+function displayUser(user) {
+    let containers = document.getElementById('displayy');
+
+    containers.innerHTML = 
+    `
+                <img src="${user.image}" alt="">
+                    <p class="username"> ${user.firstname}</p>
+
+    `
+    
+}
 
 //display search results
 

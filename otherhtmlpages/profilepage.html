@@ -1,20 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GRACIA BEAUTY WEBSITE</title>
-    <link rel="stylesheet" href="../othercsspages/addtocart.css">
+    <title>Document</title>
+    <link rel="stylesheet" href="../othercsspages/profilepage.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="shortcut icon" href="../images/gracia.png" type="image/x-icon">
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="shortcut icon" href="../images/gracia.png" type="image/x-icon">
 </head>
-
 <body>
     <div class="header1">
-
         <div class="promoCode">
             <p>15% sitewide! use promo code LOVE15</p>
         </div>
@@ -66,6 +63,7 @@
         </nav>
     </header>
 
+    
     <div class="hiddenMenuBar" id="hiddenMenuBar">
         <div class="close-mark"> <i class="fa-solid fa-xmark close" style="color: #000000;" id="closeMenu"></i>
         </div>
@@ -86,68 +84,53 @@
             <h1>What you are looking for?</h1>
             <input type="search" placeholder="search" id="searchTerm">
             <div id="searchContainer" class="results-container"></div>
-
         </div>
     </div>
-    <!-- cart header -->
-    <section class="cart-headerr">
-        <h1>cart</h1>
-    </section>
-
-    <!-- cart -->
-    <section class="cart">
-        <table id="cart-container">
-            <tr class="cart-header" id="cart-header">
-                <th>del</th>
-                <th class="product-title">Product</th>
-                <th class="price-title">Price</th>
-                <th class="quantity-title">Quantity</th>
-                <th class="subtotal-title">Subtotal</th>
-            </tr>
-            <tbody id="cartContainer"></tbody>
-        </table>
 
 
-        <div class="totalitems" id="totalitems" style="visibility: hidden;">
-          <div class="total-items">
-            <table>
-                <tr>
-                    <td> <strong>Subtotal:</strong></td>
-                    <td id="displaySubtotal" class="id"></td>
-                </tr>
-
-                <tr>
-                    <td> <strong>Tax:</strong></td>
-                    <td id="displayTax" class="id"></td>
-                </tr>
-
-                <tr>
-                    <td><strong>Total:</strong></td>
-                    <td id="displaytotal" class="id"></td>
-                </tr>
+<div id="alertBox"></div>
 
 
-            </table>
-          </div>
+
+
+    <section class="profile-page">
+        <div class="profile-container">
+            <div class="profile-header">
+              <img id="profileDisplayImg" src="https://via.placeholder.com/100" alt="Profile" class="profile-pic"/>
+              <h2 id="profileDisplayName">User Name</h2>
+            </div>
+        
+            <form id="profileForm" class="profile-form">
+              <div class="form-group">
+                <label for="firstname">First Name</label>
+                <input type="text" id="firstname" required />
+              </div>
+        
+              <div class="form-group">
+                <label for="lastname">Last Name</label>
+                <input type="text" id="lastname" required />
+              </div>
+        
+              <div class="form-group">
+                <label for="imageUpload">Upload Image</label>
+                <input type="file" id="imageUpload" accept="image/*"/>
+                <img id="profileImagePreview" class="preview" src="https://via.placeholder.com/100" />
+              </div>
+        
+              <button type="submit">Update Profile</button>
+              <button type="button" id="logoutBtn" class="logout">Logout</button>
+            </form>
             
-          <div class="items">
-            <button><a href="">CHECKOUT</a></button>
+            <div id="alertBox" class="alert-box"></div>
           </div>
-        </div>
-        <div class="cartempty" id="empty" style="display: none;">
-            <h1>Your cart is currently empty.</h1>
-            <p>Looks like you haven't made your choice yet...</p>
-            <button class="button"><a href="./allproduct.html">Shop Now</a></button>
-        </div>
+        
+          
     </section>
-    <div id="alertBox"></div>
 
 
-    <!-- total item -->
 
-
-    <!-- newsletter -->
-    <section class="newsletter" id="news">
+     <!-- newsletter -->
+     <section class="newsletter" id="news">
         <div class="news-wrapper">
             <h1>Are you on the list?</h1>
             <p>Join to get exclusive offers & discounts</p>
@@ -207,8 +190,6 @@
         <p>© 2035 by Noelle. Powered and secured by Wix</p>
     </footer>
 
-<script type="module" src="../otherjavascriptpages/displaycart.js"></script>
-    <script type="module" src="../otherjavascriptpages/addtocart.js"></script>
 </body>
-
+<script type="module" src="../otherjavascriptpages/profilepage.js"></script>
 </html>

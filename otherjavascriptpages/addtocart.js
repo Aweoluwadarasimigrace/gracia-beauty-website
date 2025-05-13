@@ -1,6 +1,13 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
 import { getFirestore, getDocs, collection, addDoc, query, where, updateDoc, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
+import {
+    createUserWithEmailAndPassword,
+    onAuthStateChanged,
+    getAuth
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+
 
 const firebaseConfig = {
     apiKey: "AIzaSyB8ssLFBwiDqNb_Qc5lfnjazBHy6yDxxtA",
@@ -14,29 +21,32 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-const colRef = collection(db, 'cart');
+const auth = getAuth();
 let cartArray = [];
 
 
-
-
-async function getCart() {
-    try {
-        const querySnapshot = await getDocs(colRef);
-        querySnapshot.forEach((doc) => {
-            const data = { id: doc.id, ...doc.data() };
-            cartArray.push(data);
-        });
-        console.log(cartArray);  // Debugging
-        displayCart();
-    } catch (error) {
-        console.log(error);
+onAuthStateChanged(auth, async (user) => {
+    if (user) {
+        try {
+            const colRef = collection(db, 'user', user.uid, 'cart');
+            const querySnapshot = await getDocs(colRef);
+            querySnapshot.forEach((doc) => {
+                const data = { id: doc.id, ...doc.data() };
+                console.log(data);
+                cartArray.push(data);
+            });
+            console.log(cartArray);  // Debugging
+            displayCart(user.uid);
+        } catch (error) {
+            console.log(error);
+        }
+    } else {
+        showAlert('user not logged in');
     }
-}
+})
 
 
-
-function displayCart() {
+function displayCart(userId) {
     const container = document.getElementById('cartContainer');
     const emptyMessage = document.getElementById('empty');
     const cartHeader = document.getElementById('cart-header');
@@ -48,15 +58,16 @@ function displayCart() {
         return;
     } else {
         cartHeader.style.visibility = 'visible';
-        
-    const totalitems = document.getElementById('totalitems')
-    totalitems.style.visibility = 'visible'
-         // or 'flex' depending on your layout
+
+        const totalitems = document.getElementById('totalitems')
+        totalitems.style.visibility = 'visible'
+        // or 'flex' depending on your layout
         emptyMessage.style.display = 'none';
     }
     container.innerHTML = ''; // Clear old items before appending new ones
-
+    let subtotal = 0;
     cartArray.forEach((product, index) => {
+        subtotal += product.subtotal || (product.price * product.quantity)
         container.innerHTML +=
 
             `
@@ -66,7 +77,7 @@ function displayCart() {
     <i class="fa-solid fa-trash deletebtn"></i>
   </td>
   <td>
-    <a href="./singlepage.html?id=${product.id}&cameFrom=cart" class="a">
+    <a href="./singlepage.html?id=${product.id}" class="a">
       <div class="item-details">
         <img src="${product.image}" class="product-image" alt="${product.productname}">
           <div> <h3 class="name">${product.productname}</h3>
@@ -92,23 +103,20 @@ function displayCart() {
             ;
     });
 
-    let subtotal = 0;
-    
-    cartArray.forEach((product) => {
-        subtotal += product.subtotal || (product.price * product.quantity)
-        let tax = 200;
-        let total = subtotal + tax;
-    
-        const displaySubtotal = document.getElementById('displaySubtotal')
 
-        displaySubtotal.innerHTML = `$${subtotal}.00`;
-        const displayTax = document.getElementById('displayTax');
+    let tax = 200;
+    let total = subtotal + tax;
 
-        displayTax.innerHTML = `$${tax}.00`;
-        const displaytotal = document.getElementById('displaytotal');
-        displaytotal.innerHTML = `$${total}.00`
+    const displaySubtotal = document.getElementById('displaySubtotal')
 
-    });
+    displaySubtotal.innerHTML = `$${subtotal}.00`;
+    const displayTax = document.getElementById('displayTax');
+
+    displayTax.innerHTML = `$${tax}.00`;
+    const displaytotal = document.getElementById('displaytotal');
+    displaytotal.innerHTML = `$${total}.00`
+
+
     // Attach event listeners
     const cartItems = document.querySelectorAll('.cart-item');
     cartItems.forEach((item) => {
@@ -121,11 +129,18 @@ function displayCart() {
         const index = parseInt(item.dataset.index);
 
         deleteBtn.addEventListener('click', async () => {
-            const productId = cartArray[index].id;
-            cartArray.splice(index, 1);
-            await deleteCart(productId); // Optional: if using Firebase
-            displayCart(); // Re-render UI
-            window.updateCartCount();
+            try {
+                const productId = cartArray[index].id;
+                const cartRef = doc(db, 'user', userId, 'cart', productId);
+                await deleteDoc(cartRef)
+                cartArray.splice(index, 1);
+                displayCart(userId); // Re-render UI
+                window.updateCartCount();
+
+            } catch (error) {
+                console.log(error);
+
+            }
         });
 
         increaseBtn.addEventListener('click', async () => {
@@ -133,7 +148,7 @@ function displayCart() {
             quantityInput.value = cartArray[index].quantity;
             cartArray[index].subtotal = cartArray[index].quantity * cartArray[index].price
             subtotalDisplay.textContent = `$${cartArray[index].subtotal} .00`
-            await updatecartQuantity(cartArray[index].id, cartArray[index].quantity, cartArray[index].price, cartArray[index].subtotal);
+            await updatecartQuantity(userId, cartArray[index].id, cartArray[index].quantity, cartArray[index].price, cartArray[index].subtotal);
         });
 
         decreaseBtn.addEventListener('click', async () => {
@@ -142,9 +157,9 @@ function displayCart() {
                 quantityInput.value = cartArray[index].quantity;
                 cartArray[index].subtotal = cartArray[index].quantity * cartArray[index].price
                 subtotalDisplay.textContent = `$${cartArray[index].subtotal} .00`
-                await updatecartQuantity(cartArray[index].id, cartArray[index].quantity, cartArray[index].price, cartArray[index].subtotal);
+                await updatecartQuantity(userId, cartArray[index].id, cartArray[index].quantity, cartArray[index].price, cartArray[index].subtotal);
             } else {
-               showAlert('invalid operation')
+                showAlert('invalid operation')
             }
         });
     });
@@ -153,23 +168,8 @@ function displayCart() {
 
 
 
-async function deleteCart(docId) {
-    try {
-        const cartRef = doc(db, 'cart', docId);
-        await deleteDoc(cartRef);
-        showAlert('deleted from cart');
-        window.updateCartCount();
-    } catch (error) {
-        console.log(error);
-
-    }
-};
-
-
-
-
-async function updatecartQuantity(docId, quantity, price, subtotal) {
-    const cartRef = doc(db, 'cart', docId);
+async function updatecartQuantity(docId, quantity, price, subtotal, userId) {
+    const cartRef = doc(db, 'user', userId, 'cart', docId);
     displayCart()
     try {
         await updateDoc(cartRef, {
@@ -183,30 +183,30 @@ async function updatecartQuantity(docId, quantity, price, subtotal) {
     }
 }
 
-getCart();
 
 
 
-const productCollection = ['bestsellers', 'trending'];
+
+const productCollection = ['bestsellers', 'trending', 'face', 'eyes'];
 
 async function searchproductByname(searchTerm) {
     const results = [];
 
     try {
-       for (const products of productCollection) {
-        const refs = collection(db, products);
-        const snapshot = await getDocs(refs);
-        snapshot.forEach((doc)=>{
-            const data = doc.data();
-            const nameMatch = data.productname?.toLowerCase().includes(searchTerm);
-            if (nameMatch) {
-                results.push({id: doc.id, ...doc.data()});
-            }
-        });
-       };
+        for (const products of productCollection) {
+            const refs = collection(db, products);
+            const snapshot = await getDocs(refs);
+            snapshot.forEach((doc) => {
+                const data = doc.data();
+                const nameMatch = data.productname?.toLowerCase().includes(searchTerm);
+                if (nameMatch) {
+                    results.push({ id: doc.id, ...doc.data() });
+                }
+            });
+        };
     } catch (error) {
         console.log(error);
-        
+
     };
     return results
 }
@@ -214,16 +214,16 @@ async function searchproductByname(searchTerm) {
 
 // == display search results
 function displaySearchResults(searchResult) {
-  let searchContainer = document.getElementById('searchContainer') ;
-  searchContainer.innerHTML = '';
+    let searchContainer = document.getElementById('searchContainer');
+    searchContainer.innerHTML = '';
 
-if (searchResult.length === 0) {
-   searchContainer.innerHTML = `<p> no product available</p>`
-   return
-}
-  
-searchResult.forEach(product=>{
-   searchContainer.innerHTML += `
+    if (searchResult.length === 0) {
+        searchContainer.innerHTML = `<p> no product available</p>`
+        return
+    }
+
+    searchResult.forEach(product => {
+        searchContainer.innerHTML += `
     <div class="productCard">
        <a href="./otherhtmlpages/singlepage.html?id=${product.id}">
            <img src="${product.image}" alt="">
@@ -234,23 +234,23 @@ searchResult.forEach(product=>{
        </a>
    </div>
    `
-})
+    })
 
 };
 
 //function perfoming the search
 
 document.getElementById('searchTerm').addEventListener('input', async (e) => {
-   const searchTerm = e.target.value.trim().toLowerCase();
- 
-   if (searchTerm === '') {
-     document.getElementById('searchContainer').innerHTML = '';
-     return;
-   }
-   const results = await searchproductByname(searchTerm);
-   displaySearchResults(results);
- });
- 
+    const searchTerm = e.target.value.trim().toLowerCase();
+
+    if (searchTerm === '') {
+        document.getElementById('searchContainer').innerHTML = '';
+        return;
+    }
+    const results = await searchproductByname(searchTerm);
+    displaySearchResults(results);
+});
+
 
 
 function showAlert(message) {
