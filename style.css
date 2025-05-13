@@ -123,10 +123,13 @@
     font-size: 12px;
 }
 
-.profileimage{
+.profileimage a{
     display: flex;
     text-align: center;
     align-items: center;
+    text-decoration: none;
+    color: black;
+    gap: .5em;
 }
 .profileimage img{
     width: 40px;
@@ -134,6 +137,10 @@
     height: 40px;
 }
 
+
+#displayy{
+    visibility: hidden;
+}
 /* search bar media query */
 @media (max-width: 570px) {
     .search-wrapper {

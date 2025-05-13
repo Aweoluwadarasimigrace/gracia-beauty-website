@@ -242,6 +242,12 @@ function displayTrending() {
 // ==function to display username 
 
 onAuthStateChanged(auth, (user)=>{
+    if(user){
+        log.style.display = 'none';
+        let display = document.getElementById('displayy');
+        display.style.visibility = 'visible'
+
+    }
   getcurrentUser(user?.uid);
 
 })
@@ -263,8 +269,10 @@ function displayUser(user) {
 
     containers.innerHTML = 
     `
-                <img src="${user.image}" alt="">
+     <a href="./otherhtmlpages/profilepage.html">
+     <img src="${user.image}" alt="">
                     <p class="username"> ${user.firstname}</p>
+     </a>
 
     `
     

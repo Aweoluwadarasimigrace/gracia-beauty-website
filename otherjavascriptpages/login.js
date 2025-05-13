@@ -46,7 +46,7 @@ loginForm.addEventListener('submit', async (e) => {
         const userCredentials = await signInWithEmailAndPassword(auth, email, password);
       if(userCredentials.user){
         showAlert('login successful');
-          window.location.href = "../index.html"
+          window.location.href = "./profilepage.html"
       }else{
         showAlert('account not regisered');
         window.location.href = "./signup.html"
