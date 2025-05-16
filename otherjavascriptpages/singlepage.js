@@ -194,16 +194,6 @@ let array = ['bestsellers', 'trending', 'lipgloss product', "eyes", "faceproduct
 
 
 async function getRelatedProduct(currentProduct) {
-  // const user = auth.currentUser
-  // if (!user) return;
-
-
-
-  // const cartId = collection(db, 'user', user.uid, 'cart')
-  // const cartSnapshot = await getDocs(cartId);
-  // const cartProductId = cartSnapshot.docs.map(doc =>
-  //   doc.data().productId)
-
   try {
     for (const collectionName of array) {
       const relatedRef = collection(db, collectionName);

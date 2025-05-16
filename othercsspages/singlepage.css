@@ -598,6 +598,9 @@ nav {
     visibility: hidden;
     transform: translateY(50px);
     transition: all 0.5s ease;
+    background-color: white;
+    color: black;
+    border: 2px solid black;
 }
 
 .addtocart:hover {
