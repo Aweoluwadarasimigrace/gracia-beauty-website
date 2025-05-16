@@ -514,18 +514,18 @@ function setupQuantityButtons() {
 };
 
 
-onAuthStateChanged(auth, (user)=>{
-    if(user){
-        log.style.display = 'none';
-        let display = document.getElementById('displayy');
-        display.classList.add('auth-visible');
-        getcurrentUser(user?.uid);
-    }
-  else{
-    display.classList.remove('auth-visible');
-  }
+// onAuthStateChanged(auth, (user)=>{
+//     if(user){
+//         log.style.display = 'none';
+//         let display = document.getElementById('displayy');
+//         display.classList.add('auth-visible');
+//         getcurrentUser(user?.uid);
+//     }
+//   else{
+//     display.classList.remove('auth-visible');
+//   }
 
-})
+// })
 
 
 async function getcurrentUser(userId) {

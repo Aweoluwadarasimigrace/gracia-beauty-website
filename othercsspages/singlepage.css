@@ -247,6 +247,10 @@ nav {
     display: block;
   }
   
+  #display.auth-visible {
+    display: block;
+  }
+  
 
   
 
@@ -278,6 +282,12 @@ nav {
     #displayy.auth-visible {
         display: none;
     }
+
+    #display.auth-visible {
+        display: block;
+      }
+      
+    
 }
 
 
