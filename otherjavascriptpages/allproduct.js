@@ -73,7 +73,7 @@ async function getAllProduct() {
 
 function displayproduct(products) {
 document.getElementById("showing").innerHTML = `showing ${products.length} results`
-  let container = document.getElementById("display");
+  let container = document.getElementById("display1");
   container.innerHTML = '';
 
   products.forEach((product) => {

@@ -648,7 +648,6 @@ nav {
 .input-wrapper input {
     padding: 13px;
     border: 2px solid white;
-    /* background-color: white; */
     background-color: black;
     width: 500px;
     color: white;
@@ -662,6 +661,8 @@ nav {
     padding: 12px 20px;
     width: 150px;
     font-size: 16px;
+    background-color: white;
+    color: black;
 }
 
 @media(max-width:768px) {

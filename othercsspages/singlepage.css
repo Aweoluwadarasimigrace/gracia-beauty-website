@@ -839,6 +839,8 @@ nav {
     padding: 12px 20px;
     width: 150px;
     font-size: 16px;
+    background-color: white;
+color: #000;
 }
 
 @media(max-width:768px) {

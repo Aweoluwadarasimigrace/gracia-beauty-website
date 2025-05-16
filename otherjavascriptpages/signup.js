@@ -34,29 +34,8 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 // const colRef = collection(db, "users");
-let loginPage = document.getElementById('loginPage');
-let signupPage = document.getElementById('signupPage');
 let signinForm = document.getElementById('verifyUser')
 
-function displayLoginpage() {
-    document.getElementById('loginContainer').style.display = 'block';
-    document.getElementById('signinBox').style.display = 'none';
-};
-
-
-function displaySignuppage() {
-    document.getElementById('signinBox').style.display = 'block';
-    document.getElementById('loginContainer').style.display = 'none';
-};
-
-//invoke the anonymous function inside it 
-loginPage.addEventListener('click', () => {
-    displayLoginpage();
-});
-
-signupPage.addEventListener('click', () => {
-    displaySignuppage();
-});
 
 
 signinForm.addEventListener('submit', async (e) => {
