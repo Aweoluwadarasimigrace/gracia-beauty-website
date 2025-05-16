@@ -193,38 +193,38 @@ async function getsingleTrendingProduct() {
 let array = ['bestsellers', 'trending', 'lipgloss product', "eyes", "faceproduct"];
 
 
-// let relatedProduct = []; // Global declaration
-
 async function getRelatedProduct(currentProduct) {
-  const user = auth.currentUser;
-  if (!user) return;
+  // const user = auth.currentUser
+  // if (!user) return;
 
-  relatedProduct.length = 0; // Clear before refilling
 
-  const cartId = collection(db, 'user', user.uid, 'cart');
-  const cartSnapshot = await getDocs(cartId);
-  const cartProductId = cartSnapshot.docs.map(doc => doc.data().productId);
+
+  // const cartId = collection(db, 'user', user.uid, 'cart')
+  // const cartSnapshot = await getDocs(cartId);
+  // const cartProductId = cartSnapshot.docs.map(doc =>
+  //   doc.data().productId)
 
   try {
     for (const collectionName of array) {
       const relatedRef = collection(db, collectionName);
+
       const q = query(relatedRef, where('category', '==', currentProduct.category));
       const snapshot = await getDocs(q);
-
       snapshot.forEach((doc) => {
-        if (doc.id !== currentProduct.id) {
+        if (doc.id !== currentProduct.id ) {
           relatedProduct.push({ id: doc.id, ...doc.data() });
+
         }
       });
-    }
 
-    console.log("Related Products Found:", relatedProduct); // Debug
-    displayRelatedProduct(relatedProduct);
+    };
+
+    displayRelatedProduct(relatedProduct)
   } catch (error) {
-    console.log("Error fetching related products:", error);
+    console.log(error);
+
   }
 }
-
 
 
 
