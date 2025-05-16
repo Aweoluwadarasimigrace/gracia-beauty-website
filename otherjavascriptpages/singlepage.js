@@ -540,30 +540,24 @@ async function getcurrentUser(userId) {
 
 function displayyUser(user) {
   let containers = document.getElementById('display');
-
   containers.innerHTML = 
   `
    <a href="./profilepage.html">
-   <img src="${user.image}" alt="">
-                  <p class="username"> ${user.firstname}</p>
+      <img src="${user.image}" alt="">
+      <p class="username"> ${user.firstname}</p>
    </a>
-
   `
-  
 }
 
 function displayUser(user) {
     let containers = document.getElementById('displayy');
-
     containers.innerHTML = 
     `
      <a href="./profilepage.html">
-     <img src="${user.image}" alt="">
-                    <p class="username"> ${user.firstname}</p>
+       <img src="${user.image}" alt="">
+       <p class="username"> ${user.firstname}</p>
      </a>
-
-    `
-    
+    `  
 }
 
 

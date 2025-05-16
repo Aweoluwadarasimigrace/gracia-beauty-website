@@ -251,6 +251,10 @@ nav {
     display: block;
 }
 
+#display.auth-visible {
+    display: block;
+}
+
 
 
 /* media query for header */
@@ -276,6 +280,9 @@ nav {
     }
 
     #displayy.auth-visible {
+        display: none;
+    }
+    #display.auth-visible {
         display: none;
     }
     
@@ -373,7 +380,7 @@ nav {
     font-weight: bold;
 }
 
-#display {
+#display1 {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 3fr));
     gap: .5em;
@@ -531,7 +538,7 @@ nav {
     .product-side {
         flex: 1;
     }
-    #display {
+    #display1 {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(240px, 3fr));
         gap: .4em;
@@ -547,7 +554,7 @@ nav {
 
 @media(max-width:600px) {
    
-    #display {
+    #display1 {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(220px, 3fr));
         gap: .4em;
@@ -570,7 +577,7 @@ nav {
 
 
 @media(max-width:440px){
-    #display {
+    #display1 {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(220px, 3fr));
         gap: .4em;

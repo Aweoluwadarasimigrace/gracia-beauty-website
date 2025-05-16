@@ -56,7 +56,7 @@ geteyesProduct()
 
 function displayproduct(products) {
     document.getElementById("showing").innerHTML = `showing ${products.length} results`
-      let container = document.getElementById("display");
+      let container = document.getElementById("display1");
       container.innerHTML = '';
     
       products.forEach((product) => {
@@ -214,6 +214,7 @@ async function getcurrentUser(userId) {
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach((user) => {
     displayUser(user.data())
+    displayyUser(user.data())
   })
 }
 
@@ -221,16 +222,24 @@ async function getcurrentUser(userId) {
 
 function displayUser(user) {
   let containers = document.getElementById('displayy');
-
   containers.innerHTML =
     `
      <a href="./profilepage.html">
      <img src="${user.image}" alt="">
                     <p class="username"> ${user.firstname}</p>
      </a>
-
     `
+}
 
+function displayyUser(user) {
+  let containers = document.getElementById('display');
+  containers.innerHTML = 
+  `
+   <a href="./profilepage.html">
+      <img src="${user.image}" alt="">
+      <p class="username"> ${user.firstname}</p>
+   </a>
+  `
 }
 
 //display search results

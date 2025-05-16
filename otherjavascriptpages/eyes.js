@@ -50,44 +50,31 @@ async function geteyesProduct() {
     }
 }
 
-
 geteyesProduct()
-
-
 function displayproduct(products) {
     document.getElementById("showing").innerHTML = `showing ${products.length} results`
-      let container = document.getElementById("display");
+      let container = document.getElementById("display1");
       container.innerHTML = '';
     
       products.forEach((product) => {
         container.innerHTML += `
     
         <div class='box'>
-                        <a href="./singlepage.html?id=${product.id}">
-                        <img src='${product.image}' class='img-scale'>
-                         <div class = 'wrapper'>
-                            <p>${product.productname}</p>
+                <a href="./singlepage.html?id=${product.id}">
+                    <img src='${product.image}' class='img-scale'>
+                          <div class = 'wrapper'>
+                             <p>${product.productname}</p>
                              <p class = "category"> ${product.category}</p>
-                            
-                            <p> $ ${product.price}.00 </p>
+                             <p> $ ${product.price}.00 </p>
     
-                         </div>
-        
-                        </a> 
+                            </div>
+                </a> 
                         <button onclick="addTocart('${product.id}')" class = 'addtocart'>add to cart</button>
-                    </div>
+        </div>
           `
       })
-    
-    
-    
     };
     
-
-
-
-
-
 
 window.addTocart = async function (productId) {
   const user = auth.currentUser;
@@ -220,6 +207,7 @@ async function getcurrentUser(userId) {
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach((user) => {
     displayUser(user.data())
+    displayyUser(user.data())
   })
 }
 
@@ -227,17 +215,26 @@ async function getcurrentUser(userId) {
 
 function displayUser(user) {
   let containers = document.getElementById('displayy');
-
   containers.innerHTML =
     `
      <a href="./profilepage.html">
-     <img src="${user.image}" alt="">
-                    <p class="username"> ${user.firstname}</p>
+         <img src="${user.image}" alt="">
+          <p class="username"> ${user.firstname}</p>
      </a>
-
     `
-
 }
+
+function displayyUser(user) {
+  let containers = document.getElementById('display');
+  containers.innerHTML = 
+  `
+   <a href="./profilepage.html">
+      <img src="${user.image}" alt="">
+      <p class="username"> ${user.firstname}</p>
+   </a>
+  `
+}
+
 
 //display search results
 

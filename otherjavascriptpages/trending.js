@@ -32,6 +32,7 @@ async function geteyesProduct() {
         snapshot.forEach(product =>{
             const data = {id:product.id, ...product.data()};
             array.push(data)
+            displayproduct()
         });
         loaderr.style.display = 'none';
         loader.style.display = 'none'
@@ -42,8 +43,8 @@ async function geteyesProduct() {
         head.hidden = false
         section.style.visibility = "visible"
         hiddenproductDisplay.style.visibility = "visible"
-      
-      displayproduct(array)
+      console.log(array);
+      // displayproduct()
 
     } catch (error) {
         console.log(error)
@@ -51,17 +52,15 @@ async function geteyesProduct() {
 }
 
 
-geteyesProduct()
 
 
-function displayproduct(products) {
-    document.getElementById("showing").innerHTML = `showing ${products.length} results`
-      let container = document.getElementById("display");
+
+function displayproduct() {
+    document.getElementById("showing").innerHTML = `showing ${array.length} results`
+      let container = document.getElementById("display1");
       container.innerHTML = '';
-    
-      products.forEach((product) => {
+      array.forEach((product) => {
         container.innerHTML += `
-    
         <div class='box'>
                         <a href="./singlepage.html?id=${product.id}">
                         <img src='${product.image}' class='img-scale'>
@@ -70,9 +69,7 @@ function displayproduct(products) {
                              <p class = "category"> ${product.category}</p>
                             
                             <p> $ ${product.price}.00 </p>
-    
                          </div>
-        
                         </a> 
                         <button onclick="addTocart('${product.id}')" class = 'addtocart'>add to cart</button>
                     </div>
@@ -214,6 +211,7 @@ async function getcurrentUser(userId) {
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach((user) => {
     displayUser(user.data())
+    displayyUser(user.data())
   })
 }
 
@@ -221,7 +219,6 @@ async function getcurrentUser(userId) {
 
 function displayUser(user) {
   let containers = document.getElementById('displayy');
-
   containers.innerHTML =
     `
      <a href="./profilepage.html">
@@ -230,7 +227,17 @@ function displayUser(user) {
      </a>
 
     `
+}
 
+function displayyUser(user) {
+  let containers = document.getElementById('display');
+  containers.innerHTML = 
+  `
+   <a href="./profilepage.html">
+      <img src="${user.image}" alt="">
+      <p class="username"> ${user.firstname}</p>
+   </a>
+  `
 }
 
 //display search results
@@ -283,3 +290,4 @@ function showAlert(message) {
   }, 2000)
 }
 
+geteyesProduct()
