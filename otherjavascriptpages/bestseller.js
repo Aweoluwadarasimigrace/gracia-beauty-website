@@ -32,6 +32,7 @@ async function geteyesProduct() {
         snapshot.forEach(product =>{
             const data = {id:product.id, ...product.data()};
             array.push(data)
+            // displayproduct()
         });
         loaderr.style.display = 'none';
         loader.style.display = 'none'
@@ -43,7 +44,7 @@ async function geteyesProduct() {
         section.style.visibility = "visible"
         hiddenproductDisplay.style.visibility = "visible"
       
-      displayproduct(array)
+      displayproduct()
 
     } catch (error) {
         console.log(error)
@@ -51,15 +52,15 @@ async function geteyesProduct() {
 }
 
 
-geteyesProduct()
+// geteyesProduct()
 
 
-function displayproduct(products) {
-    document.getElementById("showing").innerHTML = `showing ${products.length} results`
+function displayproduct() {
+    document.getElementById("showing").innerHTML = `showing ${array.length} results`
       let container = document.getElementById("display1");
       container.innerHTML = '';
     
-      products.forEach((product) => {
+      array.forEach((product) => {
         container.innerHTML += `
     
         <div class='box'>
@@ -292,3 +293,4 @@ function showAlert(message) {
   }, 2000)
 }
 
+geteyesProduct()

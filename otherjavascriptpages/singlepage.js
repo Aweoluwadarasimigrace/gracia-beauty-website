@@ -199,10 +199,10 @@ async function getRelatedProduct(currentProduct) {
 
 
 
-  const cartId = collection(db, 'user', user.uid, 'cart')
-  const cartSnapshot = await getDocs(cartId);
-  const cartProductId = cartSnapshot.docs.map(doc =>
-    doc.data().productId)
+  // const cartId = collection(db, 'user', user.uid, 'cart')
+  // const cartSnapshot = await getDocs(cartId);
+  // const cartProductId = cartSnapshot.docs.map(doc =>
+  //   doc.data().productId)
 
   try {
     for (const collectionName of array) {
@@ -211,7 +211,7 @@ async function getRelatedProduct(currentProduct) {
       const q = query(relatedRef, where('category', '==', currentProduct.category));
       const snapshot = await getDocs(q);
       snapshot.forEach((doc) => {
-        if (doc.id !== currentProduct.id && !cartProductId.includes(doc.data().productId)) {
+        if (doc.id !== currentProduct.id ) {
           relatedProduct.push({ id: doc.id, ...doc.data() });
 
         }
