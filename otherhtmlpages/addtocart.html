@@ -35,14 +35,15 @@
                 <a href="../index.html"><img src="../images/gracia-removebg-preview (1).png" alt=""></a>
             </div>
             <ul class="menu-list">
-                <li><a href="./allproduct.html">SHOP ALL</a></li>
-                <li><a href="./bestselller.html">BEST SELLER</a></li>
+                <li><a href="./allproductfetch.html">SHOP ALL</a></li>
+                <li><a href="./bestseller.html">BEST SELLER</a></li>
                 <li><a href="./face.html">FACE</a></li>
                 <li><a href="./lips.html">LIPS</a></li>
                 <li><a href="./eyes.html">EYES</a></li>
             </ul>
             <div class="login-icon">
-                <div class="login">
+                <div class="profileimage" id="displayy"></div>
+                <div class="login" id="log">
                     <i class="fa-solid fa-circle-user" style="color: #000000;"></i>
                     <p><a href="">LOGIN</a></p>
 
@@ -71,9 +72,10 @@
         </div>
 
         <ul>
-            <li><a href="">LOGIN</a></li>
-            <li><a href="./allproduct.html">SHOP ALL</a></li>
-            <li><a href="./bestselller.html">BEST SELLER</a></li>
+            <li class="profileimage" id="display"></li>
+            <li><a href="./login.html">LOGIN</a></li>
+            <li><a href="./allproductfetch.html">SHOP ALL</a></li>
+            <li><a href="./bestseller.html">BEST SELLER</a></li>
             <li><a href="./face.html">FACE</a></li>
             <li><a href="./lips.html">LIPS</a></li>
             <li><a href="./eyes.html">EYES</a></li>
@@ -101,7 +103,7 @@
                 <th>del</th>
                 <th class="product-title">Product</th>
                 <th class="price-title">Price</th>
-                <th class="quantity-title">Quantity</th>
+                <th class="quantity-title">Qty</th>
                 <th class="subtotal-title">Subtotal</th>
             </tr>
             <tbody id="cartContainer"></tbody>
@@ -137,7 +139,7 @@
         <div class="cartempty" id="empty" style="display: none;">
             <h1>Your cart is currently empty.</h1>
             <p>Looks like you haven't made your choice yet...</p>
-            <button class="button"><a href="./allproduct.html">Shop Now</a></button>
+            <button class="button"><a href="./allproductfetch.html">Shop Now</a></button>
         </div>
     </section>
     <div id="alertBox"></div>
@@ -163,8 +165,8 @@
         <div class="footer">
             <ul class="ul">
                 <h3>Shop</h3>
-                <li><a href="./allproduct.html">All product</a></li>
-                <li><a href="./bestselller.html">Best seller</a></li>
+                <li><a href="./allproductfetch.html">All product</a></li>
+                <li><a href="./bestseller.html">Best seller</a></li>
                 <li><a href="./lips.html">Lips</a></li>
                 <li><a href="./eyes.html">Eyes</a></li>
                 <li><a href="./face.html">Face</a></li>

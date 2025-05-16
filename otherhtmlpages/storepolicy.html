@@ -10,15 +10,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="shortcut icon" href="../images/gracia.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../images/gracia.png" type="image/x-icon">
 </head>
 
 <body>
     <div class="header1">
-        <div class="search-box">
-            <input type="search" placeholder="what are you looking for?">
-            <i class="fa-solid fa-magnifying-glass icon" style="color: #634141;"></i>
-        </div>
 
         <div class="promoCode">
             <p>15% sitewide! use promo code LOVE15</p>
@@ -40,34 +36,34 @@
                 <a href="../index.html"> <img src="../images/gracia-removebg-preview (1).png" alt=""></a>
             </div>
             <ul class="menu-list">
-                <li><a href="./allproduct.html">SHOP ALL</a></li>
-                <li><a href="./newproduct.html">NEW</a></li>
-                <li><a href="./bestselller.html">BEST SELLER</a></li>
+                <li><a href="./allproductfetch.html">SHOP ALL</a></li>
+                <li><a href="./bestseller.html">BEST SELLER</a></li>
                 <li><a href="./face.html">FACE</a></li>
                 <li><a href="./lips.html">LIPS</a></li>
                 <li><a href="./eyes.html">EYES</a></li>
             </ul>
             <div class="login-icon">
-                <div class="login">
-                    <i class="fa-solid fa-circle-user" style="color: #000000;"></i>
-                    <p><a href="">LOGIN</a></p>
+                <div class="profileimage" id="displayy"></div>
+                    <div class="login" id="log">
+                        <i class="fa-solid fa-circle-user" style="color: #000000;"></i>
+                        <p><a href="./login.html">LOGIN</a></p>
 
-                </div>
-                <div class="heart">
-                    <i class="fa-regular fa-heart"></i>
-                </div>
-                <div class="search-hide">
-                    <i class="fa-solid fa-magnifying-glass" style="color: #000000;" id="showSearchBar"></i>
-                </div>
-                <div class="bag-wrap">
-                    <a href="./addtocart.html"> <i class="fa-solid fa-bag-shopping" style="color: #000000;"></i></a>
-                     <span id="cartCount" class="cart-count-badge"></span>
                     </div>
-     
-                <div class="menu-bar" onclick="showMenu()">
-                    <i class="fa-solid fa-bars" style="color: #000000;"></i>
+                    <div class="heart">
+                        <i class="fa-regular fa-heart"></i>
+                    </div>
+                    <div class="search-hide" >
+                        <i class="fa-solid fa-magnifying-glass" style="color: #000000;" id="showSearchBar"></i>
+                    </div>
+                    <div class="bag-wrap">
+                        <a href="./addtocart.html"> <i class="fa-solid fa-bag-shopping" style="color: #000000;"></i></a>
+                        <span id="cartCount" class="cart-count-badge"></span>
+                    </div>
+
+                    <div class="menu-bar" onclick="showMenu()">
+                        <i class="fa-solid fa-bars" style="color: #000000;"></i>
+                    </div>
                 </div>
-            </div>
         </nav>
     </header>
 
@@ -77,9 +73,8 @@
 
         <ul>
             <li><a href="">LOGIN</a></li>
-            <li><a href="./allproduct.html">SHOP ALL</a></li>
-            <li><a href="./newproduct.html">NEW</a></li>
-            <li><a href="./bestselller.html">BEST SELLER</a></li>
+            <li><a href="./allproductfetch.html">SHOP ALL</a></li>
+            <li><a href="./bestseller.html">BEST SELLER</a></li>
             <li><a href="./face.html">FACE</a></li>
             <li><a href="./lips.html">LIPS</a></li>
             <li><a href="./eyes.html">EYES</a></li>
@@ -90,7 +85,8 @@
         <div class="search-wrapper">
             <div class="close-mark"> <i class="fa-solid fa-xmark" style="color: #000000;" id="closeSearchBar"></i></div>
             <h1>What you are looking for?</h1>
-            <input type="search" placeholder="search">
+            <input type="search" placeholder="search" id="searchTerm">
+            <div id="searchContainer" class="results-container"></div>
         </div>
     </div>
 
@@ -99,7 +95,8 @@
         <div class="store-policy">
             <h1>Gracia Beauty Store Policy</h1>
 
-            <p class="p-para">At Gracia Beauty, we are dedicated to providing you with premium beauty products and a seamless shopping
+            <p class="p-para">At Gracia Beauty, we are dedicated to providing you with premium beauty products and a
+                seamless shopping
                 experience. To ensure transparency and build trust with our customers, we have outlined our store
                 policies in detail below. Please take a few moments to review them before placing your order.</p>
             <div class="paragraph1">
@@ -191,8 +188,10 @@
             <div class="paragraph3">
                 <h3>🛒 Order Changes & Cancellations</h3>
                 <ul>
-                    <li>We begin processing orders quickly to ensure timely delivery, so we are unable to guarantee cancellations or changes once an order has been placed.</li>
-                    <li>If you need to make a change, contact us immediately, and we’ll do our best to assist you before your order ships.
+                    <li>We begin processing orders quickly to ensure timely delivery, so we are unable to guarantee
+                        cancellations or changes once an order has been placed.</li>
+                    <li>If you need to make a change, contact us immediately, and we’ll do our best to assist you before
+                        your order ships.
                     </li>
                 </ul>
             </div>
@@ -200,7 +199,8 @@
             <div class="paragraph3">
                 <h3>🔐 Privacy & Security</h3>
                 <ul>
-                    <li>Your privacy is important to us. We never share your personal or payment information with third parties.</li>
+                    <li>Your privacy is important to us. We never share your personal or payment information with third
+                        parties.</li>
                     <li>All transactions are encrypted and processed securely using trusted payment gateways.</li>
                 </ul>
             </div>
@@ -214,7 +214,9 @@
             </div>
 
             <div class="paragraph">
-                <p>Thank you for choosing Gracia Beauty. We appreciate your trust in our brand and are committed to making your shopping experience as smooth and satisfying as possible. Your beauty journey starts here — and we’re honored to be part of it.
+                <p>Thank you for choosing Gracia Beauty. We appreciate your trust in our brand and are committed to
+                    making your shopping experience as smooth and satisfying as possible. Your beauty journey starts
+                    here — and we’re honored to be part of it.
                 </p>
             </div>
         </div>
@@ -247,9 +249,8 @@
         <div class="footer">
             <ul class="ul">
                 <h3>Shop</h3>
-                <li><a href="./allproduct.html">All product</a></li>
-                <li><a href="./newproduct.html">New</a></li>
-                <li><a href="./bestselller.html">Best seller</a></li>
+                <li><a href="./allproductfetch.html">All product</a></li>
+                <li><a href="./bestseller.html">Best seller</a></li>
                 <li><a href="./lips.html">Lips</a></li>
                 <li><a href="./eyes.html">Eyes</a></li>
                 <li><a href="./face.html">Face</a></li>
@@ -291,7 +292,42 @@
     </footer>
 
     <script type="module" src="../otherjavascriptpages/displaycart.js"></script>
-    <script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getFirestore, getDocs, collection, addDoc, query, where, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        import {
+            getAuth,
+            onAuthStateChanged
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        const firebaseConfig = {
+            apiKey: "AIzaSyB8ssLFBwiDqNb_Qc5lfnjazBHy6yDxxtA",
+            authDomain: "practise-firebase-89eb9.firebaseapp.com",
+            projectId: "practise-firebase-89eb9",
+            storageBucket: "practise-firebase-89eb9.firebasestorage.app",
+            messagingSenderId: "957716840584",
+            appId: "1:957716840584:web:7a5f4f0d6e5fe555a7df3d",
+            measurementId: "G-D15XM34EE3"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+
+
+        document.getElementById('newsletter').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            if (!email) {
+                alert('Please enter a valid email.');
+                return;
+            }
+            // Optionally: Send with EmailJS or store in Firestore
+            alert('Thanks for subscribing!');
+        });
+
         function showMenu() {
             const menu = document.getElementById("hiddenmenuBar");
             menu.style.visibility = "visible";
@@ -311,6 +347,118 @@
         });
 
         window.updateCartCount();
+
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                log.style.display = 'none';
+                let display = document.getElementById('displayy');
+                display.classList.add('auth-visible');
+                getcurrentUser(user.uid);
+
+            }
+            else {
+                display.classList.remove('auth-visible');
+            }
+        })
+
+
+        async function getcurrentUser(userId) {
+            const colRef = collection(db, "user");
+            const q = query(colRef, where('userId', '==', userId));
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((user) => {
+                displayUser(user.data())
+            })
+        }
+
+
+
+        function displayUser(user) {
+            let containers = document.getElementById('displayy');
+
+            containers.innerHTML =
+                `
+     <a href="./otherhtmlpages/profilepage.html">
+     <img src="${user.image}" alt="">
+                    <p class="username"> ${user.firstname}</p>
+     </a>
+
+    `
+
+        }
+
+        const productCollection = ['bestsellers', 'trending', 'eyes'];
+
+async function searchproductByname(searchTerm) {
+    const results = [];
+
+    try {
+       for (const products of productCollection) {
+        const refs = collection(db, products);
+        console.log(`Checking collection: ${products}`);
+        const snapshot = await getDocs(refs);
+
+        snapshot.forEach((doc)=>{
+            const data = doc.data();
+            const nameMatch = data.productname?.toLowerCase().includes(searchTerm);
+            console.log(nameMatch);
+            if (nameMatch) {
+                results.push({id: doc.id, ...doc.data()});
+            }
+        });
+       };
+
+    } catch (error) {
+        console.log(error);
+    };
+
+    return results
+}
+
+
+
+function displaySearchResults(searchResult) {
+   let searchContainer = document.getElementById('searchContainer') ;
+   searchContainer.innerHTML = '';
+
+if (searchResult.length === 0) {
+    searchContainer.innerHTML = `<p> no product available</p>`
+    return
+}
+   
+searchResult.forEach(product=>{
+    searchContainer.innerHTML += `
+     <div class="productCard">
+        <a href="./otherhtmlpages/singlepage.html?id=${product.id}">
+            <img src="${product.image}" alt="">
+           <div class="details">
+            <h3>${product.productname}</h3>
+            <p>$${product.price}.00</p>
+           </div>
+        </a>
+    </div>
+    `
+})
+
+};
+
+
+//function perfoming the search
+
+document.getElementById('searchTerm').addEventListener('input', async (e) => {
+    const searchTerm = e.target.value.trim().toLowerCase();
+  
+    if (searchTerm === '') {
+      document.getElementById('searchContainer').innerHTML = '';
+      return;
+    }
+    const results = await searchproductByname(searchTerm);
+    displaySearchResults(results);
+  });
+  
+
+
     </script>
 </body>
 

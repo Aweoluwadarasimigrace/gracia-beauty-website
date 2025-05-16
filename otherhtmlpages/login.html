@@ -1,56 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="../othercsspages/login.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+
+  <!-- Tailwind via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Custom CSS (Optional) -->
+  <link rel="stylesheet" href="../othercsspages/login.css" />
 </head>
 <body>
-    <!-- component -->
-<div class="bg-[#57423h] flex justify-center items-center h-screen">
-    <!-- Left: Image -->
-<div class="w-1/2 h-screen hidden lg:block">
-  <img src="../images/lol.jpg" alt="Placeholder Image" class="object-cover w-full h-full">
-</div>
-<!-- Right: Login Form -->
-<div class="lg:p-10 md:p-20 sm:20 p-8 w-full lg:w-1/2">
-  <h1 class="text-2xl font-bold mb-4 text-center" >Login</h1>
 
-  <form action="#" method="POST" id="loginForm">
-    <!-- Username Input -->
-    <div class="mb-4">
-      <label for="email" class="block text-gray-600">Email</label>
-      <input type="email" id="email" name="email" class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500" autocomplete="off">
+  <!-- Alert Box -->
+  <div id="alertBox"></div>
+
+  <!-- Login Container -->
+  <div class="flex justify-center items-center h-screen">
+    <!-- Left Image Section (Only on large screens) -->
+    <div class="w-1/2 h-screen hidden lg:block">
+      <img src="../images/lol.jpg" alt="Login Image" class=" object-cover w-full h-full " />
     </div>
-    <!-- Password Input -->
-    <div class="mb-4">
-      <label for="password" class="block text-gray-600">Password</label>
-      <input type="password" id="password" name="password" class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500" autocomplete="off">
+
+    <!-- Login Form Section -->
+    <div class="bg-white p-8 rounded-lg shadow-md w-full lg:w-1/2">
+      <h1 class="text-2xl font-bold mb-6 text-center text-gray-800">Login</h1>
+
+      <form id="loginForm">
+        <!-- Email -->
+        <div class="mb-4">
+          <label for="email" class="block text-gray-600 mb-1">Email</label>
+          <input type="email" id="email" name="email" required class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <!-- Password -->
+        <div class="mb-4">
+          <label for="password" class="block text-gray-600 mb-1">Password</label>
+          <input type="password" id="password" name="password" required class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <!-- Remember Me -->
+        <div class="mb-4 flex items-center">
+          <input type="checkbox" id="remember" name="remember" class="text-blue-500" />
+          <label for="remember" class="text-gray-600 ml-2">Remember Me</label>
+        </div>
+
+        <!-- Forgot Password -->
+        <div class="mb-4 text-right">
+          <a id="forget" href="#" class="text-blue-500 hover:underline text-sm">Forgot Password?</a>
+        </div>
+
+        <!-- Login Button -->
+        <div class="text-center">
+          <button type="submit" class="bg-[#57423d] w-full text-white font-semibold rounded-md py-2 px-4 hover:bg-[#45322f] transition">
+            Login
+          </button>
+        </div>
+      </form>
+
+      <!-- Signup Link -->
+      <p class="mt-6 text-center text-sm text-gray-600">
+        Don't have an account?
+        <a id="signup" href="./signup.html" class="text-blue-500 hover:underline">Sign up here</a>
+      </p>
     </div>
-    <!-- Remember Me Checkbox -->
-    <div class="mb-4 flex items-center">
-      <input type="checkbox" id="remember" name="remember" class="text-blue-500">
-      <label for="remember" class="text-gray-600 ml-2">Remember Me</label>
-    </div>
-    <!-- Forgot Password Link -->
-    <div class="mb-6 text-blue-500">
-      <a href="#" class="hover:underline">Forgot Password?</a>
-    </div>
-    <div id="alertBox" class="alert"></div>
-    <!-- Login Button -->
-  <div class="flex justify-center items-center">
-    <button type="submit" class="bg-[#57423d] text-white font-semibold rounded-md py-2 px-39 >Login</button>
   </div>
 
-  </form>
-  <!-- Sign up  Link -->
-  <div class="mt-6 text-blue-500 text-center">
-    Login 
-  </div>
-</div>
-</div>
+  <!-- JS -->
+  <script type="module" src="../otherjavascriptpages/login.js"></script>
 </body>
-<script type="module" src="../otherjavascriptpages/login.js"></script>
 </html>
+
+
+
+
+

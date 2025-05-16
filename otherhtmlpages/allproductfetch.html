@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../othercsspages/bestseller.css">
     <link rel="shortcut icon" href="../images/gracia.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>GRACIA BEAUTY WEBSITE</title>
 </head>
+
 <body>
+
+    <div class="wrap" id="loaderr">
+        <div class="loader" id="loader"></div>
+    </div>
     <div class="header1" id="header">
 
         <div class="promoCode">
@@ -27,23 +33,24 @@
     </div>
 
 
-    <header id="head">
+    <header id="head" hidden>
         <nav>
             <div class="image-wrapper">
                 <a href="../index.html"><img src="../images/gracia-removebg-preview (1).png" alt=""></a>
             </div>
             <ul class="menu-list">
-                <li><a href="./allproduct.html">SHOP ALL</a></li>
-                <li><a href="./newproduct.html">NEW</a></li>
-                <li><a href="./bestselller.html">BEST SELLER</a></li>
+                <li><a href="./allproductfetch.html">SHOP ALL</a></li>
+                <li><a href="./bestseller.html">BEST SELLER</a></li>
                 <li><a href="./face.html">FACE</a></li>
                 <li><a href="./lips.html">LIPS</a></li>
                 <li><a href="./eyes.html">EYES</a></li>
             </ul>
             <div class="login-icon">
-                <div class="login">
+                <div class="profileimage" id="displayy"></div>
+                <a href="./profilepage.html"></a>
+                <div class="login" id="log">
                     <i class="fa-solid fa-circle-user" style="color: #000000;"></i>
-                    <p><a href="">LOGIN</a></p>
+                    <p><a href="./login.html">LOGIN</a></p>
 
                 </div>
                 <div class="heart">
@@ -53,10 +60,10 @@
                     <i class="fa-solid fa-magnifying-glass" style="color: #000000;" id="showSearchBar"></i>
                 </div>
                 <div class="bag-wrap">
-                   <a href="./addtocart.html"> <i class="fa-solid fa-bag-shopping" style="color: #000000;"></i></a>
+                    <a href="./addtocart.html"> <i class="fa-solid fa-bag-shopping" style="color: #000000;"></i></a>
                     <span id="cartCount" class="cart-count-badge"></span>
-                   </div>
-    
+                </div>
+
 
                 <div class="menu-bar">
                     <i class="fa-solid fa-bars" style="color: #000000;" id="showMenu"></i>
@@ -65,14 +72,15 @@
         </nav>
     </header>
 
-    <div class="hiddenMenuBar" id="hiddenMenuBar">
+    <div class="hiddenMenuBar" id="hiddenmenuBar">
         <div class="close-mark"> <i class="fa-solid fa-xmark close" style="color: #000000;" id="closeMenu"></i>
         </div>
 
         <ul>
-            <li><a href="">LOGIN</a></li>
-            <li><a href="./allproduct.html">SHOP ALL</a></li>
-            <li><a href="./bestselller.html">BEST SELLER</a></li>
+            <div class="profileimage" id="display"></div>
+            <li><a href="./login.html">LOGIN</a></li>
+            <li><a href="./allproductfetch.html">SHOP ALL</a></li>
+            <li><a href="./bestseller.html">BEST SELLER</a></li>
             <li><a href="./face.html">FACE</a></li>
             <li><a href="./lips.html">LIPS</a></li>
             <li><a href="./eyes.html">EYES</a></li>
@@ -81,8 +89,7 @@
 
     <div class="search-hidden" id="searchBar">
         <div class="search-wrapper">
-            <div class="close-mark"> <i class="fa-solid fa-xmark" style="color: #000000;"
-                    id="closeSearchBar"></i></div>
+            <div class="close-mark"> <i class="fa-solid fa-xmark" style="color: #000000;" id="closeSearchBar"></i></div>
             <h1>What you are looking for?</h1>
             <input type="search" placeholder="search" id="searchTerm">
             <div id="searchContainer" class="results-container"></div>
@@ -91,39 +98,47 @@
 
 
 
-    <div class="section-header">
-        <p><a href="../index.html">HOME</a></p>
-        <p><a href="./bestselller.html">BESTSELLER</a></p>
+    <div class="section-header" id="section">
+      <h1 id="name"></h1>
     </div>
 
 
 
-    <section class="displayproduct">
+    <section class="displayproduct" id="hiddenproductDisplay">
         <div class="section-wrap">
             <div class="flex-section">
                 <div class="side1">
                     <h1>Browse By</h1>
-                    <p><a href="./allproduct.html">All Products</a></p>
-                    <p><a href="./bestselller.html">Best Sellers</a></p>
-                    <p>Eyes</p>
-                    <p>Face</p>
-                       <p>Lips</p>
-                       <p>New</p>
-                        <p>Now Trending</p>
+                    <p><a href="./allproductfetch.html">All Products</a></p>
+                    <p><a href="./bestseller.html">Best Sellers</a></p>
+                    <p><a href="./eyes.html">Eyes</a></p>
+                    <p><a href="./face.html">Face</a></p>
+                    <p><a href="./lips.html">Lips</a></p>
+                    <p><a href="./trending.html">Now Trending</a></p>
+                </div>
+
+                <div class="product-side">
+                    <div class="product-wrapper">
+                        <p id="showing"></p>
+                        <div class="sort-dropdown">
+                            <h1>Sort By</h1>
+                            <div class="dropdown-content">
+                                <p><a href="#">Price: Low to High</a></p>
+                                <p><a href="#">Price: High to Low</a></p>
+                                <p><a href="#">Newest</a></p>
+                                <p><a href="#">Best Sellers</a></p>
+                                <p><a href="#">Trending</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-product">
+                        <div id="display"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-
-
-
-
-
-
-
-
-
-    <section class="newsletter" id="news">
+    <section class="newsletter" id="news" hidden>
         <div class="news-wrapper">
             <h1>Are you on the list?</h1>
             <p>Join to get exclusive offers & discounts</p>
@@ -133,14 +148,13 @@
             </form>
         </div>
     </section>
-    <div id="alertBox" class="alert">p.</div>
-    <footer id="footer">
+    <div id="alertBox"></div>
+    <footer id="footer" hidden>
         <div class="footer">
             <ul class="ul">
                 <h3>Shop</h3>
-                <li><a href="./allproduct.html">All product</a></li>
-                <li><a href="./newproduct.html">New</a></li>
-                <li><a href="./bestselller.html">Best seller</a></li>
+                <li><a href="./allproductfetch.html">All product</a></li>
+                <li><a href="./bestseller.html">Best seller</a></li>
                 <li><a href="./lips.html">Lips</a></li>
                 <li><a href="./eyes.html">Eyes</a></li>
                 <li><a href="./face.html">Face</a></li>
@@ -182,7 +196,9 @@
         </div>
         <p>© 2035 by Noelle. Powered and secured by Wix</p>
     </footer>
-    
+
 </body>
 <script type="module" src="../otherjavascriptpages/allproduct.js"></script>
+<script type="module" src="../otherjavascriptpages/displaycart.js"></script>
+
 </html>

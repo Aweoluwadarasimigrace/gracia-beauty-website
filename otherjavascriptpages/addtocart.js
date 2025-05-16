@@ -30,8 +30,10 @@ onAuthStateChanged(auth, async (user) => {
         try {
             const colRef = collection(db, 'user', user.uid, 'cart');
             const querySnapshot = await getDocs(colRef);
+            cartArray = [];
             querySnapshot.forEach((doc) => {
                 const data = { id: doc.id, ...doc.data() };
+                // const data = doc.data()
                 console.log(data);
                 cartArray.push(data);
             });
@@ -77,7 +79,7 @@ function displayCart(userId) {
     <i class="fa-solid fa-trash deletebtn"></i>
   </td>
   <td>
-    <a href="./singlepage.html?id=${product.id}" class="a">
+    <a href="./singlepage.html?id=${product.productId}" class="a">
       <div class="item-details">
         <img src="${product.image}" class="product-image" alt="${product.productname}">
           <div> <h3 class="name">${product.productname}</h3>
@@ -291,4 +293,58 @@ function closeSearchBar() {
     searchbar.style.display = "none";
 }
 
-// window.updateCartCount();
+// ==function to display username 
+
+onAuthStateChanged(auth, (user)=>{
+    if(user){
+        log.style.display = 'none';
+        let display = document.getElementById('displayy');
+        display.classList.add('auth-visible');
+        getcurrentUser(user?.uid);
+    }
+  else{
+    display.classList.remove('auth-visible');
+  }
+
+})
+
+
+async function getcurrentUser(userId) {
+    const colRef = collection(db, "user");
+    const q = query(colRef, where('userId', '==', userId));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((user)=>{
+        displayUser(user.data())
+        displayyUser(user.data())
+    })
+}
+
+
+
+function displayUser(user) {
+    let containers = document.getElementById('displayy');
+
+    containers.innerHTML = 
+    `
+     <a href="./profilepage.html">
+       <img src="${user.image}" alt="">
+       <p class="username"> ${user.firstname}</p>
+     </a>
+
+    `
+    
+}
+
+function displayyUser(user) {
+    let containers = document.getElementById('display');
+  
+    containers.innerHTML = 
+    `
+     <a href="./profilepage.html">
+       <img src="${user.image}" alt="">
+        <p class="username"> ${user.firstname}</p>
+     </a>
+  
+    `
+    
+  }

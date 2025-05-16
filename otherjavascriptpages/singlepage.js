@@ -37,12 +37,12 @@ const colRef = doc(db, "bestsellers", productId);
 const trendingRef = doc(db, "trending", productId);
 let bestSeller = [], trending = [], relatedProduct = [], relatedTrendingProduct = [], cart = [];
 
-
+// let product = []
 // === Auth State Change ===
 onAuthStateChanged(auth, async (user) => {
   if (user) {
-   getaddtoCart();
-   window.updateCartCount();
+    getaddtoCart();
+    window.updateCartCount();
   }
 });
 
@@ -51,31 +51,34 @@ onAuthStateChanged(auth, async (user) => {
 // === fetch add to cart product ==
 async function getaddtoCart() {
   const user = auth.currentUser;
-  if(!user) return;
+  if (!user) return;
 
-  
+
   try {
     const cartRef = doc(db, "user", user.uid, "cart", productId);
     const snapshot = await getDoc(cartRef);
     if (snapshot.exists()) {
-      const product = {id: snapshot.id, ...snapshot.data()};
+      const product = { id: snapshot.id, ...snapshot.data() };
+      // const product = snapshot.data()
       cart.push(product);
+      console.log(product);
+
       displayTrendingProduct(cart);
       getRelatedProduct(product)
       loaderr.style.display = 'none';
-       loader.style.display = 'none'
+      loader.style.display = 'none'
       loader.hidden = true
       footer.hidden = false
       news.hidden = false
-      header.style.visibility = 'visible' 
+      header.style.visibility = 'visible'
       like.hidden = false
-      nav.hidden = false  
-      head.hidden = false 
-       review.style.visibility = 'visible';
+      nav.hidden = false
+      head.hidden = false
+      review.style.visibility = 'visible';
     }
   } catch (error) {
     console.log(error);
-    
+
   }
 };
 
@@ -110,19 +113,53 @@ async function getBestsellerProduct() {
       bestSeller.push(product);
       displaybestsellerProduct(bestSeller);
       getRelatedProduct(product)
-       loaderr.style.display = 'none';
-       loader.style.display = 'none'
+      loaderr.style.display = 'none';
+      loader.style.display = 'none'
       loader.hidden = true
       footer.hidden = false
       news.hidden = false
-      header.style.visibility = 'visible' 
+      header.style.visibility = 'visible'
       like.hidden = false
-      nav.hidden = false  
-      head.hidden = false 
-       review.style.visibility = 'visible'
+      nav.hidden = false
+      head.hidden = false
+      review.style.visibility = 'visible'
     }
   } catch (error) {
     console.log(error);
+  }
+}
+
+
+// using for of to get the rest single page 
+
+const allProduct = ['eyes', 'faceproduct', 'lipgloss product']
+const products = [];
+async function getsingleAllProduct() {
+  
+  try {
+    for (const name of allProduct) {
+      const productRef = doc(db, name, productId);
+      const snapshot = await getDoc(productRef);
+      if (snapshot.exists()) {
+        const productData = { id: snapshot.id, ...snapshot.data() }
+        products.push(productData);
+        console.log(products)
+        displayTrendingProduct(products);
+        getRelatedProduct(productData);
+        loaderr.style.display = 'none';
+      loader.style.display = 'none'
+      loader.hidden = true
+      footer.hidden = false
+      news.hidden = false
+      header.style.visibility = 'visible'
+      like.hidden = false
+      nav.hidden = false
+      head.hidden = false
+      review.style.visibility = 'visible'
+      }
+    }
+  } catch (error) {
+    console.log(error)
   }
 }
 
@@ -135,15 +172,15 @@ async function getsingleTrendingProduct() {
       displayTrendingProduct(trending);
       getRelatedProduct(product);
       loaderr.style.display = 'none';
-       loader.style.display = 'none'
+      loader.style.display = 'none'
       loader.hidden = true
       footer.hidden = false
       news.hidden = false
-      header.style.visibility = 'visible' 
+      header.style.visibility = 'visible'
       like.hidden = false
-      nav.hidden = false  
-      head.hidden = false 
-      review.style.visibility = 'visible' 
+      nav.hidden = false
+      head.hidden = false
+      review.style.visibility = 'visible'
     }
   } catch (error) {
     console.log(error);
@@ -153,7 +190,7 @@ async function getsingleTrendingProduct() {
 
 // === Get Related Products from Multiple Collections ===
 
-let array = ['bestsellers', 'trending', 'lipgloss product'];
+let array = ['bestsellers', 'trending', 'lipgloss product', "eyes", "faceproduct"];
 
 
 async function getRelatedProduct(currentProduct) {
@@ -164,28 +201,28 @@ async function getRelatedProduct(currentProduct) {
 
   const cartId = collection(db, 'user', user.uid, 'cart')
   const cartSnapshot = await getDocs(cartId);
-  const cartProductId = cartSnapshot.docs.map(doc=>
+  const cartProductId = cartSnapshot.docs.map(doc =>
     doc.data().productId)
 
   try {
     for (const collectionName of array) {
       const relatedRef = collection(db, collectionName);
-    
+
       const q = query(relatedRef, where('category', '==', currentProduct.category));
       const snapshot = await getDocs(q);
-      snapshot.forEach((doc)=>{
+      snapshot.forEach((doc) => {
         if (doc.id !== currentProduct.id && !cartProductId.includes(doc.data().productId)) {
-          relatedProduct.push({id: doc.id, ...doc.data()});
-         
+          relatedProduct.push({ id: doc.id, ...doc.data() });
+
         }
       });
-      
+
     };
 
     displayRelatedProduct(relatedProduct)
   } catch (error) {
     console.log(error);
-    
+
   }
 }
 
@@ -199,12 +236,15 @@ window.addToCart = async function (productId) {
   if (!user) {
     showAlert('Login before you can add to cart');
     return;
-  };
+  }
+  // console.log(productname);
+
 
   const qtyInput = document.getElementById("quantity");
   const quantityToAdd = parseInt(qtyInput?.value || 1);
 
-  const product = [...bestSeller, ...trending, ...cart, ...relatedProduct, ...relatedTrendingProduct].find(p => p.id === productId);
+  const product = [...bestSeller, ...trending, ...cart, ...relatedProduct, ...relatedTrendingProduct, ...products].find(p => p.id === productId)
+
   if (!product) return;
 
   try {
@@ -213,7 +253,7 @@ window.addToCart = async function (productId) {
     const snapshot = await getDocs(q);
 
     if (!snapshot.empty) {
-      const docToUpdate = snapshot.docs[0];//gets the first document
+      const docToUpdate = snapshot.docs[0];
       const cartItemRef = doc(db, "user", user.uid, "cart", docToUpdate.id);
       const newQuantity = (docToUpdate.data().quantity || 1) + quantityToAdd;
       const newSubtotal = product.price * newQuantity;
@@ -238,11 +278,12 @@ window.addToCart = async function (productId) {
       showAlert("Added to cart!");
     }
 
-    window.updateCartCount(); // update cart bubble
+    window.updateCartCount();
   } catch (error) {
     console.log("Error adding to cart:", error);
   }
 };
+
 
 // ==add eventlisner for the button ==
 
@@ -260,14 +301,14 @@ function setWishlist() {
 }
 // == wishlist function ==
 
-window.addtowishList = async function (productId) {
+window.addtowishList = async function (productId, productname) {
   const user = auth.currentUser;
   if (!user) {
     showAlert('Login before you can add to wishlist');
     return;
   }
 
-  const product = [...bestSeller, ...trending, ...cart, ...relatedProduct, ...relatedTrendingProduct].find(p => p.id === productId);
+  const product = [...bestSeller, ...trending, ...cart, ...relatedProduct, ...relatedTrendingProduct, ...products].find(p => p.id === productId && p.productname.toLowerCase() === productname.toLowerCase());
   if (!product) return;
 
   const quantityToAdd = 1;
@@ -302,45 +343,46 @@ window.addtowishList = async function (productId) {
 
 // === Search Product by Name ===
 
-const productCollection = ['bestsellers', 'trending'];
+const productCollection = ['bestsellers', 'trending', 'eyes', 'faceproduct', 'lipgloss product'];
 
 async function searchproductByname(searchTerm) {
-    const results = [];
+  const results = [];
 
-    try {
-       for (const products of productCollection) {
-        const refs = collection(db, products);
-        const snapshot = await getDocs(refs);
-        snapshot.forEach((doc)=>{
-            const data = doc.data();
-            const nameMatch = data.productname?.toLowerCase().includes(searchTerm);
-            if (nameMatch) {
-                results.push({id: doc.id, ...doc.data()});
-            }
-        });
-       };
-    } catch (error) {
-        console.log(error);
-        
+  try {
+    for (const products of productCollection) {
+      const refs = collection(db, products);
+      const snapshot = await getDocs(refs);
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        const nameMatch = data.productname?.toLowerCase().includes(searchTerm);
+        const ifNameIsTheSame = results.find(p => p.productname === data.productname)
+        if (nameMatch && !ifNameIsTheSame) {
+          results.push({ id: doc.id, ...doc.data() });
+        }
+      });
     };
-    return results
+  } catch (error) {
+    console.log(error);
+
+  };
+  return results
 }
 
 
 // == display search results
 function displaySearchResults(searchResult) {
-  let searchContainer = document.getElementById('searchContainer') ;
+  let searchContainer = document.getElementById('searchContainer');
   searchContainer.innerHTML = '';
 
-if (searchResult.length === 0) {
-   searchContainer.innerHTML = `<p> no product available</p>`
-   return
-}
-  
-searchResult.forEach(product=>{
-   searchContainer.innerHTML += `
+  if (searchResult.length === 0) {
+    searchContainer.innerHTML = `<p> no product available</p>`
+    return
+  }
+
+  searchResult.forEach(product => {
+    searchContainer.innerHTML += `
     <div class="productCard">
-       <a href="./otherhtmlpages/singlepage.html?id=${product.id}">
+       <a href="./singlepage.html?id=${product.id}">
            <img src="${product.image}" alt="">
           <div class="details">
            <h3>${product.productname}</h3>
@@ -349,7 +391,7 @@ searchResult.forEach(product=>{
        </a>
    </div>
    `
-})
+  })
 
 };
 
@@ -370,10 +412,10 @@ document.getElementById('searchTerm').addEventListener('input', async (e) => {
 // === Display Functions ===
 function displayRelatedProduct(product) {
   const box = document.getElementById("youmightalsolike");
-  box.innerHTML= ''
- product.forEach((p) => {
+  box.innerHTML = ''
+  product.forEach((p) => {
     box.innerHTML +=
-    `
+      `
     <div class='box'>
       <a href="./singlepage.html?id=${p.id}&cameFrom=bestsellers">
         <img src='${p.image}' class='img-scale'>
@@ -385,7 +427,7 @@ function displayRelatedProduct(product) {
       <button onclick="addToCart('${p.id}')" class="addtocart">Add to Cart</button>
     </div>
   `
- })
+  })
 }
 
 
@@ -472,6 +514,57 @@ function setupQuantityButtons() {
 };
 
 
+onAuthStateChanged(auth, (user)=>{
+    if(user){
+        log.style.display = 'none';
+        let display = document.getElementById('displayy');
+        display.classList.add('auth-visible');
+        getcurrentUser(user?.uid);
+    }
+  else{
+    display.classList.remove('auth-visible');
+  }
+
+})
+
+
+async function getcurrentUser(userId) {
+    const colRef = collection(db, "user");
+    const q = query(colRef, where('userId', '==', userId));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((user)=>{
+        displayUser(user.data())
+        displayyUser(user.data())
+    })
+}
+
+function displayyUser(user) {
+  let containers = document.getElementById('display');
+
+  containers.innerHTML = 
+  `
+   <a href="./profilepage.html">
+   <img src="${user.image}" alt="">
+                  <p class="username"> ${user.firstname}</p>
+   </a>
+
+  `
+  
+}
+
+function displayUser(user) {
+    let containers = document.getElementById('displayy');
+
+    containers.innerHTML = 
+    `
+     <a href="./profilepage.html">
+     <img src="${user.image}" alt="">
+                    <p class="username"> ${user.firstname}</p>
+     </a>
+
+    `
+    
+}
 
 
 
@@ -515,4 +608,5 @@ export function showAlert(message) {
 // === Init ===
 getBestsellerProduct();
 getsingleTrendingProduct();
+getsingleAllProduct()
 // getaddtoCart();

@@ -24,88 +24,65 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
-
-// === fetch all product 
-
-
+const colRef = collection(db, "trending");
 const array = []
+async function geteyesProduct() {
+    try {
+        const snapshot = await getDocs(colRef);
+        snapshot.forEach(product =>{
+            const data = {id:product.id, ...product.data()};
+            array.push(data)
+        });
+        loaderr.style.display = 'none';
+        loader.style.display = 'none'
+        loader.hidden = true
+        footer.hidden = false
+        news.hidden = false
+        header.style.visibility = 'visible'
+        head.hidden = false
+        section.style.visibility = "visible"
+        hiddenproductDisplay.style.visibility = "visible"
+      
+      displayproduct(array)
 
-async function getAllProduct() {
-  const collectionName = ['bestsellers', 'trending', 'eyes', 'faceproduct', 'lipgloss product']
-
-  try {
-    for (const name of collectionName) {
-      const cartRef = collection(db, name);
-      const snapshot = await getDocs(cartRef);
-      snapshot.forEach(docs => {
-        const data = { id: docs.id, ...docs.data() };
-        const productName = data.productname?.toLowerCase();
-        const exists = array.find(item => item.productname?.toLowerCase().trim() === productName);
-        if (!exists) {
-          array.push(data)
-          console.log(array)
-        }
-      });
-    };
-
-    loaderr.style.display = 'none';
-      loader.style.display = 'none'
-      loader.hidden = true
-      footer.hidden = false
-      news.hidden = false
-      header.style.visibility = 'visible'
-      head.hidden = false
-      section.style.visibility = "visible"
-      hiddenproductDisplay.style.visibility = "visible"
-    
-    displayproduct(array)
-  }
-
-  catch (error) {
-    console.log(error)
-  }
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 
-
-// getAllProduct()
+geteyesProduct()
 
 
 function displayproduct(products) {
-document.getElementById("showing").innerHTML = `showing ${products.length} results`
-  let container = document.getElementById("display");
-  container.innerHTML = '';
-
-  products.forEach((product) => {
-    container.innerHTML += `
-
-    <div class='box'>
-                    <a href="./singlepage.html?id=${product.id}">
-                    <img src='${product.image}' class='img-scale'>
-                     <div class = 'wrapper'>
-                        <p>${product.productname}</p>
-                         <p class = "category"> ${product.category}</p>
-                        
-                        <p> $ ${product.price}.00 </p>
-
-                     </div>
+    document.getElementById("showing").innerHTML = `showing ${products.length} results`
+      let container = document.getElementById("display");
+      container.innerHTML = '';
     
-                    </a> 
-                    <button onclick="addTocart('${product.id}')" class = 'addtocart'>add to cart</button>
-                </div>
-      `
-  })
-
-
-
-};
-
-
-
-
-
-
-
+      products.forEach((product) => {
+        container.innerHTML += `
+    
+        <div class='box'>
+                        <a href="./singlepage.html?id=${product.id}">
+                        <img src='${product.image}' class='img-scale'>
+                         <div class = 'wrapper'>
+                            <p>${product.productname}</p>
+                             <p class = "category"> ${product.category}</p>
+                            
+                            <p> $ ${product.price}.00 </p>
+    
+                         </div>
+        
+                        </a> 
+                        <button onclick="addTocart('${product.id}')" class = 'addtocart'>add to cart</button>
+                    </div>
+          `
+      })
+    
+    
+    
+    };
+    
 window.addTocart = async function (productId) {
   const user = auth.currentUser;
 
@@ -125,7 +102,7 @@ window.addTocart = async function (productId) {
   try {
     const cartRef = collection(db, "user", user.uid, "cart");
     const normalizedName = product.productname.trim().toLowerCase();
-    // console.log(normalizedName);
+    console.log(normalizedName);
 
     // Check if a product with the same name is already in the cart
     const q = query(cartRef, where("normalizedName", "==", normalizedName));
@@ -189,7 +166,7 @@ function closeSearchBar() {
 }
 
 
-const productCollection = ['bestsellers', 'trending', 'eyes'];
+const productCollection = ['bestsellers', 'trending', 'eyes', 'lipgloss product', 'faceproduct'];
 
 async function searchproductByname(searchTerm) {
   const results = [];
@@ -197,7 +174,7 @@ async function searchproductByname(searchTerm) {
   try {
     for (const products of productCollection) {
       const refs = collection(db, products);
-      console.log(`Checking collection: ${products}`);
+    //   console.log(`Checking collection: ${products}`);
       const snapshot = await getDocs(refs);
 
       snapshot.forEach((doc) => {
@@ -237,7 +214,6 @@ async function getcurrentUser(userId) {
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach((user) => {
     displayUser(user.data())
-    displayyUser(user.data())
   })
 }
 
@@ -245,26 +221,17 @@ async function getcurrentUser(userId) {
 
 function displayUser(user) {
   let containers = document.getElementById('displayy');
+
   containers.innerHTML =
     `
      <a href="./profilepage.html">
-        <img src="${user.image}" alt="">
-        <p class="username"> ${user.firstname}</p>
+     <img src="${user.image}" alt="">
+                    <p class="username"> ${user.firstname}</p>
      </a>
+
     `
-}
 
-function displayyUser(user) {
-  let containers = document.getElementById('display');
-  containers.innerHTML = 
-  `
-   <a href="./profilepage.html">
-        <img src="${user.image}" alt="">
-        <p class="username"> ${user.firstname}</p>
-   </a>
-  `
 }
-
 
 //display search results
 
@@ -306,8 +273,6 @@ document.getElementById('searchTerm').addEventListener('input', async (e) => {
   displaySearchResults(results);
 });
 
-
-
 function showAlert(message) {
 
   alertBox.innerHTML = message;
@@ -318,4 +283,3 @@ function showAlert(message) {
   }, 2000)
 }
 
-getAllProduct()

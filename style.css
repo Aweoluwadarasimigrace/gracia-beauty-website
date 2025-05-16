@@ -138,9 +138,6 @@
 }
 
 
-#displayy{
-    visibility: hidden;
-}
 /* search bar media query */
 @media (max-width: 570px) {
     .search-wrapper {
@@ -241,6 +238,11 @@ nav {
     justify-content: center;
     line-height: 1;
   }
+
+
+  #displayy.auth-visible {
+    display: block;
+  }
   
 /* media query for header */
 @media (max-width: 1024px) {
@@ -266,6 +268,9 @@ nav {
     .heart{
         visibility: hidden;
     }
+    #displayy{
+       display: none;
+      }
 }
 
 

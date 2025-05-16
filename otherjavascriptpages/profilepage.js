@@ -4,7 +4,10 @@
     getFirestore,
     doc,
     getDoc,
-    updateDoc
+    updateDoc,
+    collection,
+    query, where,
+    getDocs
   } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
   import {
     getAuth,
@@ -55,6 +58,7 @@
       profileImagePreview.src = data.image || "update profile picture";
       profileDisplayImg.src = data.image || "update profile picture";
       profileDisplayName.textContent = `${data.firstname || ""} ${data.lastname || ""}`.trim();
+      // window.updateCartCount();
     } else {
       showAlert("User data not found");
     }
@@ -83,6 +87,7 @@
           image: photoURL
         });
         updateUI(firstname, lastname, photoURL);
+        updateDoc(userRef, {firstname, lastname, photoURL})
         showAlert("Profile updated successfully");
       };
       reader.readAsDataURL(imageUpload.files[0]);
@@ -131,4 +136,150 @@
   document.getElementById("closeSearchBar").addEventListener("click", () => {
     document.getElementById("searchBar").style.display = "none";
   });
+  
+  
 
+  onAuthStateChanged(auth, (user)=>{
+      if(user){
+          log.style.display = 'none';
+          let display = document.getElementById('displayy');
+          display.classList.add('auth-visible');
+          getcurrentUser(user?.uid);
+      }
+    else{
+      display.classList.remove('auth-visible');
+    }
+  
+  })
+  
+  
+  async function getcurrentUser(userId) {
+      const colRef = collection(db, "user");
+      const q = query(colRef, where('userId', '==', userId));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((user)=>{
+          displayUser(user.data())
+          displayyUser(user.data())
+      })
+  }
+  
+  
+  
+  function displayUser(user) {
+      let containers = document.getElementById('displayy');
+  
+      containers.innerHTML = 
+      `
+       <a href="./profilepage.html">
+       <img src="${user.image}" alt="">
+                      <p class="username"> ${user.firstname}</p>
+       </a>
+  
+      `
+      
+  }
+
+
+  function displayyUser(user) {
+    let containers = document.getElementById('display');
+
+    containers.innerHTML = 
+    `
+     <a href="./profilepage.html">
+     <img src="${user.image}" alt="">
+                    <p class="username"> ${user.firstname}</p>
+     </a>
+
+    `
+    
+}
+
+  const productCollection = ['bestsellers', 'trending', 'eyes', 'faceproduct', 'lipgloss product'];
+  
+  async function searchproductByname(searchTerm) {
+    const results = [];
+  
+    try {
+      for (const products of productCollection) {
+        const refs = collection(db, products);
+        const snapshot = await getDocs(refs);
+        snapshot.forEach((doc) => {
+          const data = doc.data();
+          const nameMatch = data.productname?.toLowerCase().includes(searchTerm);
+          const ifNameIsTheSame = results.find(p => p.productname === data.productname)
+          if (nameMatch && !ifNameIsTheSame) {
+            results.push({ id: doc.id, ...doc.data() });
+          }
+        });
+      };
+    } catch (error) {
+      console.log(error);
+  
+    };
+    return results
+  }
+
+
+
+  // == display search results
+function displaySearchResults(searchResult) {
+  let searchContainer = document.getElementById('searchContainer');
+  searchContainer.innerHTML = '';
+
+  if (searchResult.length === 0) {
+    searchContainer.innerHTML = `<p> no product available</p>`
+    return
+  }
+
+  searchResult.forEach(product => {
+    searchContainer.innerHTML += `
+    <div class="productCard">
+       <a href="./singlepage.html?id=${product.id}">
+           <img src="${product.image}" alt="">
+          <div class="details">
+           <h3>${product.productname}</h3>
+           <p>$${product.price}.00</p>
+          </div>
+       </a>
+   </div>
+   `
+  })
+
+};
+
+document.getElementById('searchTerm').addEventListener('input', async (e) => {
+  const searchTerm = e.target.value.trim().toLowerCase();
+
+  if (searchTerm === '') {
+    document.getElementById('searchContainer').innerHTML = '';
+    return;
+  }
+  const results = await searchproductByname(searchTerm);
+  displaySearchResults(results);
+});
+  
+
+window.updateCartCount = async function () {
+  const user = auth.currentUser;
+  if (!user) return;
+
+  try {
+    const cartRef = collection(db, "user", user.uid, "cart");
+    const snapshot = await getDocs(cartRef);
+    const cartArray = snapshot.docs.map(doc => doc.data());
+    const cartCount = cartArray.length;
+
+    const cartCountElement = document.getElementById('cartCount');
+    if (cartCountElement) {
+      cartCountElement.textContent = cartCount;
+    }
+  } catch (error) {
+    console.log("Error updating cart count:", error);
+  }
+};
+
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    window.updateCartCount();
+  }
+});

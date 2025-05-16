@@ -124,6 +124,21 @@
     font-size: 12px;
 }
 
+.profileimage a{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    gap: .5em;
+}
+.profileimage img{
+    width: 40px;
+    border-radius: 50%;
+    height: 40px;
+}
+
+
 
 /* search bar media query */
 @media (max-width: 570px) {
@@ -228,6 +243,9 @@ nav {
     line-height: 1;
   }
 
+  #displayy.auth-visible {
+    display: block;
+  }
   
 
   
@@ -252,6 +270,13 @@ nav {
 
     .image-wrapper img {
         width: 110px;
+    }
+
+    .heart{
+        visibility: hidden;
+    }
+    #displayy.auth-visible {
+        display: none;
     }
 }
 
