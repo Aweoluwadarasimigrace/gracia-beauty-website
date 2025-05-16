@@ -213,6 +213,7 @@ async function getRelatedProduct(currentProduct) {
       snapshot.forEach((doc) => {
         if (doc.id !== currentProduct.id ) {
           relatedProduct.push({ id: doc.id, ...doc.data() });
+          console.log(relatedProduct)
 
         }
       });
