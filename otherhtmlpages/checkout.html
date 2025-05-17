@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Checkout</title>
+  <link rel="stylesheet" href="../othercsspages/checkout.css">
+  <!-- <link rel="stylesheet" href="style.css" /> -->
+</head>
+<body>
+  <div class="checkout-container">
+    <h2>Checkout</h2>
+    <div id="alertBox" class="alert"></div>
+
+    <!-- Cart Display -->
+    <div id="cart-items"></div>
+    <div id="grand-total" class="total-line"></div>
+
+    <!-- Customer Info Form -->
+    <label for="name">Full Name</label>
+    <input type="text" id="name" required />
+
+    <label for="phone">Phone Number</label>
+    <input type="number" id="phone" required />
+
+    <label for="email">Email</label>
+    <input type="email" id="email" required />
+
+    <label for="address">Delivery Address</label>
+    <textarea id="address" rows="4" required></textarea>
+
+    <button id="checkout-btn">Place Order via WhatsApp</button>
+  </div>
+
+  <!-- Firebase -->
+  
+</body>
+</html>
+<script type="module" src="../otherjavascriptpages/checkout.js"></script>
