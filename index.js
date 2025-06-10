@@ -40,14 +40,14 @@ const shopNow = document.getElementById('shopNow');
 
 // Redirect user to Bestsellers page
 shopbestseller.addEventListener('click', () => {
-    window.location.href = "./otherhtmlpages/bestselller.html";
+    window.location.href = "./otherhtmlpages/bestseller.html";
 });
 
 shoplip.addEventListener('click', ()=>{
     window.location.href = './otherhtmlpages/lips.html';
 });
 shopNow.addEventListener('click', ()=>{
-    window.location.href = './otherhtmlpages/allproduct.html'
+    window.location.href = './otherhtmlpages/allproductfetch.html'
 })
 
 
@@ -110,9 +110,6 @@ async function searchproductByname(searchTerm) {
 
     return results
 }
-
-
-
 
 // get trending
 async function getTrending() {
