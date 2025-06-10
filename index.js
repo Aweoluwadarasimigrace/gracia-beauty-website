@@ -113,20 +113,22 @@ async function searchproductByname(searchTerm) {
 
 // get trending
 async function getTrending() {
-
     try {
+        trending.length = 0; // clear array to avoid duplicates
         const trendingProduct = await getDocs(trendingRef);
+        
         trendingProduct.forEach((doc) => {
             const data2 = { id: doc.id, ...doc.data() };
-            trending.push(data2)
+            trending.push(data2);
         });
 
+        console.log("Trending products fetched:", trending);
         displayTrending();
-
     } catch (error) {
-        console.log(error);
+        console.error("Error fetching trending products:", error);
     }
 }
+
 // get bestseller
 async function getBestsellers() {
     try {
