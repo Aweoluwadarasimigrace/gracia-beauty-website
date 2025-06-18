@@ -263,7 +263,7 @@ function displaySearchResults(searchResult) {
   searchResult.forEach(product => {
     searchContainer.innerHTML += `
      <div class="productCard">
-        <a href="./otherhtmlpages/singlepage.html?id=${product.id}">
+        <a href="./singlepage.html?id=${product.id}">
             <img src="${product.image}" alt="">
            <div class="details">
             <h3>${product.productname}</h3>
