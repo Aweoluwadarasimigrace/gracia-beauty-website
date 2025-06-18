@@ -84,6 +84,7 @@
   top: 0;
   height: 100vh;
   z-index: 1000;
+   overflow-y: scroll;
 }
 
 .search-wrapper {
@@ -117,6 +118,53 @@
   color: black;
   margin-bottom: 25px;
   text-align: center;
+}
+
+.results-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .productCard {
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  .productCard img {
+   width: 50px;
+  }
+  
+.productCard a{
+    display: flex;
+    text-decoration: none;
+    align-items: center;
+    gap: .5em;
+    color: black;
+}
+.productCard h3{
+    font-weight: 400;
+    font-size: 17px;
+}
+
+.productCard p{
+    font-weight: 400;
+    font-size: 12px;
+}
+
+.profileimage a{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    gap: .5em;
+}
+.profileimage img{
+    width: 40px;
+    border-radius: 50%;
+    height: 40px;
 }
 
 

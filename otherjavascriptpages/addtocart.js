@@ -43,7 +43,9 @@ onAuthStateChanged(auth, async (user) => {
             console.log(error);
         }
     } else {
+        const emptyMessage = document.getElementById('empty');
         showAlert('user not logged in');
+           emptyMessage.style.display = 'block';
     }
 })
 

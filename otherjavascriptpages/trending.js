@@ -165,6 +165,7 @@ function closeSearchBar() {
 
 const productCollection = ['bestsellers', 'trending', 'eyes', 'lipgloss product', 'faceproduct'];
 
+
 async function searchproductByname(searchTerm) {
   const results = [];
 
@@ -176,10 +177,16 @@ async function searchproductByname(searchTerm) {
 
       snapshot.forEach((doc) => {
         const data = doc.data();
-        const nameMatch = data.productname?.toLowerCase().includes(searchTerm);
-        console.log(nameMatch);
+        const productName = data.productname?.toLowerCase()
+        const nameMatch = productName.includes(searchTerm);
+        
+
+
         if (nameMatch) {
-          results.push({ id: doc.id, ...doc.data() });
+          const existing = results.find((item)=> item.productname?.toLowerCase() === productName)
+        if(!existing){
+            results.push({ id: doc.id, ...doc.data() });
+        }
         }
       });
     };
@@ -190,6 +197,8 @@ async function searchproductByname(searchTerm) {
 
   return results
 }
+
+
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
